@@ -16,6 +16,7 @@ INSTALLED_APPS = (
     'south',
 
 #apps
+    'books',
 #libs
     'html5_boilerplate',
 #    'utils',
