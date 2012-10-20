@@ -35,6 +35,7 @@ class Book(Abs_Named_Model):
     
     author = models.ForeignKey('authors.Author',related_name='books')
     publisher = models.ForeignKey('publishers.Publisher',related_name='books')
+    
     synopsis = models.TextField(_('Synopsis'), null=True,blank=True)
     genres = TaggableManager(verbose_name=_("Genres"),help_text=_("A comma-separated list of genres."))
     
@@ -42,6 +43,7 @@ class Book(Abs_Named_Model):
     desired = models.PositiveSmallIntegerField(_("Desired"), choices=DESIRE_CHOICES, default=DESIRE_CHOICES.curious)
     
     #purchase data
+    purchase_store = models.ForeignKey('stores.Store',related_name='books',null=True,blank=True)
     purchased       = models.BooleanField(_("Purchased?"),default=False)
     purchase_value = models.DecimalField(_("Purchase Value"),max_digits=10, decimal_places=2,default=Decimal("0"), null=True, blank=True)
     purchase_date =  models.DateField(_("Purchase Date"),  null=True, blank=True)#, default=datetime.date.today,)
@@ -60,7 +62,7 @@ class Book(Abs_Named_Model):
         If the task is assigned to someone, then add this member to the project members
         """
         #if has a purchase value or date then mark as purchased
-        if self.purchase_value or self.purchase_date:
+        if self.purchase_value or self.purchase_date or self.purchase_store:
             self.purchased = True
         
         super(Book, self).save(*args, **kwargs)
