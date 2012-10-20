@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-    apps.authors.models
+    apps.publishers.models
     ~~~~~~~~~~~~~~
 
-    authors models
+    publisher models
     
     :copyright: (c) 2012 by arruda.
 """
 
 from utils.abs_models import Abs_Named_Model
 
-class Author(Abs_Named_Model):
-    "a book author"
+
+class Publisher(Abs_Named_Model):
     
     class Meta:
-        app_label = 'authors'
+        app_label = 'publishers'

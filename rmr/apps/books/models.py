@@ -34,6 +34,7 @@ class Book(Abs_Named_Model):
                      )
     
     author = models.ForeignKey('authors.Author',related_name='books')
+    publisher = models.ForeignKey('publishers.Publisher',related_name='books')
     synopsis = models.TextField(_('Synopsis'), null=True,blank=True)
     genres = TaggableManager(verbose_name=_("Genres"),help_text=_("A comma-separated list of genres."))
     
