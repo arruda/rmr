@@ -34,9 +34,9 @@ class BookAdmin(admin.ModelAdmin):
     ]
 
     
-    list_display = ('name','author','publisher','desired','purchased','just_released')
-    list_editable = ('author','publisher','desired','purchased',)
-    list_filter = ['desired','purchased','genres__name','author__name','publisher__name']
+    list_display = ('name','author','publisher','desired','purchased','purchase_date','purchase_value')
+    list_editable = ('author','publisher','desired','purchased','purchase_value','purchase_date')
+    list_filter = ['desired','purchased','genres__name','author__name','publisher__name','purchase_date']
     search_fields = ['name','author__name','publisher__name']
 
 admin.site.register(Book, BookAdmin)
