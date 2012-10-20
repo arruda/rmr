@@ -12,6 +12,7 @@ INSTALLED_APPS = (
     'django_extensions', 
     'model_utils', 
     'debug_toolbar',
+    'taggit',
     'south',
 
 #apps
