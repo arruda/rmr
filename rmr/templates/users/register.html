@@ -1,0 +1,11 @@
+{% extends "util/base.html"%}
+{% block 'body-content' %}
+
+	<h1>Register your Enterprise:</h1>	
+	<form action="{% url register_enterprise %}" method="post" id="register-form">
+		{% csrf_token %}
+		{{ form.as_ul }}
+		<input type="submit" value="Register" />
+	</form>
+	
+{% endblock %}

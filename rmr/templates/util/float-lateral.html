@@ -1,0 +1,13 @@
+<div id="side" >			
+	<nav class="opt_menu adjust_height">
+		{% if logged_member %}
+			<ul>
+				<li><a href="{% url manage_members %}" >Members</a></li>
+				<li><a href="{% url manage_projects %}" >Projects</a></li>
+				<li><a href="{% url manage_tasks %}" >Tasks</a></li>
+				<li><a href="#">Finances</a></li>
+				
+			</ul>
+		{% endif %}
+	</nav>
+</div>

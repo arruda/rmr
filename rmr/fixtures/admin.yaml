@@ -1,0 +1,15 @@
+- fields:
+    date_joined: 2012-10-08 12:57:23.722211
+    email: root@root.com
+    first_name: ''
+    groups: []
+    is_active: true
+    is_staff: true
+    is_superuser: true
+    last_login: 2012-10-08 12:57:23.722211
+    last_name: ''
+    password: sha1$17d39$f50aaff556651f629a9c73f07357fd7bbee96c69
+    user_permissions: []
+    username: root
+  model: auth.user
+  pk: 1

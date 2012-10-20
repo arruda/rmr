@@ -1,0 +1,19 @@
+{% extends "util/base.html"%}
+{% block 'body-content' %}
+
+	{% if request.user.is_authenticated %}	
+		<h1>Wellcome back {{request.user.email}}!</h1>	
+	        
+	{% else %} 
+		<h1>Wellcome to the Super Duper Project Manager!</h1>	
+		<p>Bacon ipsum dolor sit amet nulla consequat velit turducken. Brisket biltong cow, adipisicing rump et quis sirloin non do fugiat. 
+		Meatloaf biltong minim tail sirloin voluptate capicola leberkas, duis magna salami ham est. 
+		Shoulder fatback drumstick sed beef ribs strip steak consequat enim.</p>
+		<p>Duis nostrud kielbasa commodo t-bone ball tip occaecat consequat, capicola short loin filet mignon in aliquip cupidatat. 
+		Commodo ham hock officia turducken. Pork belly et ea frankfurter cow. 
+		Short ribs pork chop duis esse hamburger quis fugiat occaecat aute do tri-tip.
+		 Beef esse turkey ea, eiusmod andouille ball tip consectetur salami short loin ullamco aute quis turducken frankfurter. 
+		 Pariatur jerky eu ham rump in commodo velit pancetta frankfurter.</p>
+	{% endif %}
+	
+{% endblock %}
