@@ -49,10 +49,12 @@ class Book(Abs_Named_Model):
     purchase_date =  models.DateField(_("Purchase Date"),  null=True, blank=True)#, default=datetime.date.today,)
     
     
-    def just_realeased(self):
+    def just_released(self):
         "returns True if the release_date - this date is less then one year"
         release_time=datetime.timedelta(days=365)
         return datetime.date.today() - self.release_date < release_time
+    
+    just_released.short_description = 'Just Released?'
     
     class Meta:
         app_label = 'books'
