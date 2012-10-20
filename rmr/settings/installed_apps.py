@@ -17,6 +17,7 @@ INSTALLED_APPS = (
 
 #apps
     'books',
+    'authors',
 #libs
     'html5_boilerplate',
 #    'utils',
