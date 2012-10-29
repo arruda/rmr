@@ -33,7 +33,7 @@
 	                                manual:             false,
 									hovers:             false,                            // enables preview pageturn hover animation, shows a small preview of previous or next page on hover
 									overlays:           false,                            // enables navigation using a page sized overlay, when enabled links inside the content will not be clickable
-									hash:               true,                           // enables navigation using a hash string, ex: #/page/1 for page 1, will affect all booklets with 'hash' enabled
+									hash:               false,                           // enables navigation using a hash string, ex: #/page/1 for page 1, will affect all booklets with 'hash' enabled
 									keyboard:           false,                            // enables navigation with arrow keys (left: previous, right: next)
 	
 	                                next:               $bttn_next,          			// selector for element to use as click trigger for next page
@@ -59,7 +59,7 @@
 							    for(var i=0; i< booklist.length ; i++){
 								    var book = booklist[i];	
 								    console.log(book);
-								    booklet = $('#mybook').booklet("add", 2+i, newBookHtml(book));      		
+								    booklet = $('#mybook').booklet("add", "end", newBookHtml(book));      		
 							    }
 							     
 
@@ -67,14 +67,20 @@
 								booklet.bind("bookletchange", function(event, data) {
 								
 							    	booklet.unbind("bookletchange");
-							    	//booklet = booklet.booklet("gotopage", pageTotal);
 									//clearign the other page books 
-								    for(var i=0; i< pageTotal -2; i++){
-								    	booklet.booklet("remove", "end"); 
+								    for(var i=0; i< pageTotal; i++){
+								    	booklet.booklet("remove", "start"); 
 								    }
+							    	booklet = booklet.booklet("gotopage","start");
+								    //booklet.initPages();
+					                //booklet.updatePages();
+					                //booklet.updateOptions();
+								    //alert('current index: '+ booklet.booklet("option", "currentIndex"));
+							    	//booklet.booklet("option", "currentIndex", 1);
+								   	//alert('current index: '+ booklet.booklet("option", "currentIndex"));
 								    //alert('going to: '+ data.index);
 								});
-							    booklet = booklet.booklet("next");
+							    booklet = booklet.booklet("gotopage","end");
 							     
 						    	 	
 							        
