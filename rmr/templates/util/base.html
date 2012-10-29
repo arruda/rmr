@@ -15,6 +15,57 @@
 
 {% block 'jquery-docready' %}
 {{ block.super }}
+					var $mybook 		= $('#mybook');
+					var $bttn_next		= $('#next_page_button');
+					var $bttn_prev		= $('#prev_page_button');
+	
+	                $bttn_next.show();
+	                $bttn_prev.show();
+	                $mybook.booklet({
+		                       
+									name:               null,                            // name of the booklet to display in the document title bar
+									width:              920,                             // container width
+									height:             560,                             // container height
+									closed:             false,                           // start with the book "closed", will add empty pages to beginning and end of book
+									covers:             false,                           // used with  "closed", makes first and last pages into covers, without page numbers (if enabled)
+	
+									pageNumbers:        false,                            // display page numbers on each page
+	                                manual:             false,
+									hovers:             false,                            // enables preview pageturn hover animation, shows a small preview of previous or next page on hover
+									overlays:           false,                            // enables navigation using a page sized overlay, when enabled links inside the content will not be clickable
+									hash:               true,                           // enables navigation using a hash string, ex: #/page/1 for page 1, will affect all booklets with 'hash' enabled
+									keyboard:           false,                            // enables navigation with arrow keys (left: previous, right: next)
+	
+	                                next:               $bttn_next,          			// selector for element to use as click trigger for next page
+									prev:               $bttn_prev,          			// selector for element to use as click trigger for previous page
+	
+									before:             function(){},                    // callback invoked before each page turn animation
+									after:              function(){}                     // callback invoked after each page turn animation
+								});
+					
+					var $book_list_tab = $("#book-list-tab");
+					$book_list_tab.click(function(){ 
+						event.preventDefault();
+
+						$.getJSON(
+							'/books/',
+							{ },
+							function(jsonData) {
+								var new_page;
+							    var booklist = jsonData;
+							    var pageTotal = $('#mybook').booklet("option").pageTotal
+							    
+							    for(var i=0; i< booklist.length ; i++){
+								    var book = booklist[i];	
+								    console.log(book);
+								    var newBookHtml = "<div><h1>Book List</h1> <h3>"+ book.name +"</h3></div>"
+								    new_page = $('#mybook').booklet("add", "end", newBookHtml);      		
+							    }
+							    $('#mybook').booklet("gotopage", pageTotal);      
+						
+						});					
+				          
+					});					
 {% endblock %}
 
 {% block 'body-header' %}
@@ -31,9 +82,73 @@
 
 {% block 'body-main' %}
 	 <div id='content' class='adjust_height'>
-			{% block 'body-content' %}
-			{% endblock %}
+	 
+		<div class="book_wrapper">
+			<a id="next_page_button"></a>
+			<a id="prev_page_button"></a>
+            
+            <div id="tabs">
+                <ul>
+                    <li>
+                        <a href="#/page/1" id="login-tab">Login</a>
+                    </li>
+
+                    <li>                        
+                        <a href="#" id="book-list-tab">Books List</a>
+                    </li>
+                    
+                    <li>
+                        <a href="#/page/5">Add Books</a>
+                    </li>
+
+                </ul>
+                
+            </div>
+			<div id="mybook" >                       
+					{% block 'login-pages' %}
+						<div >
+							<img src="images/1.jpg" alt=""/>
+							<h1>Login</h1>
+								
+							
+						</div>
+						<div >
+							<img src="images/1.jpg" alt=""/>
+							<h1>Login</h1>
+							<p>Login.</p>
+						</div>
+					{% endblock %}
+					{% block 'addbook-pages' %}
+						<div>
+							<img src="images/3.jpg" alt="" />
+							<h1>Add Book</h1>
+							<p>Add Book.</p>
+						</div>
+						<div>
+							<img src="images/3.jpg" alt="" />
+							<h1>Add Book</h1>
+							<p>Add Book.</p>
+						</div>
+					{% endblock %}
+					{% block 'booklist-pages' %}
+						<div>
+							<img src="images/2.jpg" alt="" />
+							<h1>Book List</h1>
+							<p>Book List.</p>
+						</div>
+						<div>
+							<img src="images/2.jpg" alt="" />
+							<h1>Book List</h1>
+							<p>Book List.</p>
+						</div>
+					{% endblock %}
+			</div>
+		</div>
+		
 	 </div>
+{% endblock %}
+
+{% block 'js-onpage' %}
 {% endblock %}
 
 {% block 'body-footer' %}

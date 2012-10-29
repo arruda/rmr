@@ -14,6 +14,9 @@ bpython
 yolk
 PyYaml
 
+#django-silver
+pip install -e git+git@github.com:jarcoal/django-sliver.git#egg=django-sliver
+
 #heroku
 dj-database-url==0.2.1
 gunicorn==0.14.6
