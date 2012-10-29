@@ -51,21 +51,52 @@
 							'/books/',
 							{ },
 							function(jsonData) {
-								var new_page;
+								var booklet;
 							    var booklist = jsonData;
 							    var pageTotal = $('#mybook').booklet("option").pageTotal
+							    
 							    
 							    for(var i=0; i< booklist.length ; i++){
 								    var book = booklist[i];	
 								    console.log(book);
-								    var newBookHtml = "<div><h1>Book List</h1> <h3>"+ book.name +"</h3></div>"
-								    new_page = $('#mybook').booklet("add", "end", newBookHtml);      		
+								    booklet = $('#mybook').booklet("add", 2+i, newBookHtml(book));      		
 							    }
-							    $('#mybook').booklet("gotopage", pageTotal);      
+							     
+
+
+								booklet.bind("bookletchange", function(event, data) {
+								
+							    	booklet.unbind("bookletchange");
+							    	//booklet = booklet.booklet("gotopage", pageTotal);
+									//clearign the other page books 
+								    for(var i=0; i< pageTotal -2; i++){
+								    	booklet.booklet("remove", "end"); 
+								    }
+								    //alert('going to: '+ data.index);
+								});
+							    booklet = booklet.booklet("next");
+							     
+						    	 	
+							        
 						
 						});					
 				          
-					});					
+					});
+					
+					/* return the new book html */			
+					function newBookHtml(book){
+						var bookHtml = "<div><h1>Book List</h1>";
+						bookHtml += "<ul>";
+						$.each(book, function(key, val) {
+							bookHtml += '<li><strong>' + key + ':</strong> ' + val + '</li>';
+						});
+						
+						bookHtml += "</ul>";
+						bookHtml += "</div>";
+						bookHtml += "</div>";
+						
+						return bookHtml;
+					};
 {% endblock %}
 
 {% block 'body-header' %}
