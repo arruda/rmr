@@ -15,110 +15,125 @@
 
 {% block 'jquery-docready' %}
 {{ block.super }}
-					/** Check if the given data contains the 'not_authenticated' key as true,
-					 if so then change the page to the login page. else simply return the correct data **/
-					function check_login_or_redirect(data, callback){
-						console.log("here");
-					    if(data.not_authenticated){
-					    	console.log("not authenticated");
-					    	return false;
-					    }
-						callback(data);
-					}
-					
-					var $mybook 		= $('#mybook');
-					var $bttn_next		= $('#next_page_button');
-					var $bttn_prev		= $('#prev_page_button');
-	
-	                $bttn_next.show();
-	                $bttn_prev.show();
-	                $mybook.booklet({
-		                       
-									name:               null,                            // name of the booklet to display in the document title bar
-									width:              920,                             // container width
-									height:             560,                             // container height
-									closed:             false,                           // start with the book "closed", will add empty pages to beginning and end of book
-									covers:             false,                           // used with  "closed", makes first and last pages into covers, without page numbers (if enabled)
-	
-									pageNumbers:        false,                            // display page numbers on each page
-	                                manual:             false,
-									hovers:             false,                            // enables preview pageturn hover animation, shows a small preview of previous or next page on hover
-									overlays:           false,                            // enables navigation using a page sized overlay, when enabled links inside the content will not be clickable
-									hash:               false,                           // enables navigation using a hash string, ex: #/page/1 for page 1, will affect all booklets with 'hash' enabled
-									keyboard:           false,                            // enables navigation with arrow keys (left: previous, right: next)
-	
-	                                next:               $bttn_next,          			// selector for element to use as click trigger for next page
-									prev:               $bttn_prev,          			// selector for element to use as click trigger for previous page
-	
-									before:             function(){},                    // callback invoked before each page turn animation
-									after:              function(){}                     // callback invoked after each page turn animation
-								});
-					
-					var $book_list_tab = $("#book-list-tab");
-					$book_list_tab.click(function(){ 
-						event.preventDefault();
+		/** Check if the given data contains the 'not_authenticated' key as true,
+		 if so then change the page to the login page. else simply return the correct data **/
+		function check_login_or_redirect(data, callback){
+			console.log("here");
+		    if(data.not_authenticated){
+		    	console.log("not authenticated");
+		    	return false;
+		    }
+			callback(data);
+		}
+		
+		var $mybook 		= $('#mybook');
+		var $bttn_next		= $('#next_page_button');
+		var $bttn_prev		= $('#prev_page_button');
 
-						$.getJSON(
-							'/books/',
-							{ },
-							function(jsonData) {
-							
-								check_login_or_redirect(jsonData, function(jsonData){
-								 
-									var booklet;
-								    var booklist = jsonData;
-								    var pageTotal = $('#mybook').booklet("option").pageTotal
-								    
-								    
-								    for(var i=0; i< booklist.length ; i++){
-									    var book = booklist[i];	
-									    console.log(book);
-									    booklet = $('#mybook').booklet("add", "end", newBookHtml(book));      		
-								    }
-								     
-	
-	
-									booklet.bind("bookletchange", function(event, data) {
-									
-								    	booklet.unbind("bookletchange");
-										//clearign the other page books 
-									    for(var i=0; i< pageTotal; i++){
-									    	booklet.booklet("remove", "start"); 
-									    }
-								    	booklet = booklet.booklet("gotopage","start");
-									    //booklet.initPages();
-						                //booklet.updatePages();
-						                //booklet.updateOptions();
-									    //alert('current index: '+ booklet.booklet("option", "currentIndex"));
-								    	//booklet.booklet("option", "currentIndex", 1);
-									   	//alert('current index: '+ booklet.booklet("option", "currentIndex"));
-									    //alert('going to: '+ data.index);
-									});
-								    booklet = booklet.booklet("gotopage","end");
-								 });
-							
-							        
-						
-							}
-							
-						);					
-				          
+        $bttn_next.show();
+        $bttn_prev.show();
+        $mybook.booklet({
+                   
+						name:               null,                            // name of the booklet to display in the document title bar
+						width:              920,                             // container width
+						height:             560,                             // container height
+						closed:             false,                           // start with the book "closed", will add empty pages to beginning and end of book
+						covers:             false,                           // used with  "closed", makes first and last pages into covers, without page numbers (if enabled)
+
+						pageNumbers:        false,                            // display page numbers on each page
+                        manual:             false,
+						hovers:             false,                            // enables preview pageturn hover animation, shows a small preview of previous or next page on hover
+						overlays:           false,                            // enables navigation using a page sized overlay, when enabled links inside the content will not be clickable
+						hash:               false,                           // enables navigation using a hash string, ex: #/page/1 for page 1, will affect all booklets with 'hash' enabled
+						keyboard:           false,                            // enables navigation with arrow keys (left: previous, right: next)
+
+                        next:               $bttn_next,          			// selector for element to use as click trigger for next page
+						prev:               $bttn_prev,          			// selector for element to use as click trigger for previous page
+
+						before:             function(){},                    // callback invoked before each page turn animation
+						after:              function(){}                     // callback invoked after each page turn animation
 					});
-					
-					/* return the new book html */			
-					function newBookHtml(book){
-						var bookHtml = "<div><h1>Book List</h1>";
-						bookHtml += "<h2>"+ book.name + "</h2>";
-						bookHtml += "<ul>";
-						$.each(book, function(key, val) {
-							bookHtml += '<li><strong>' + key + ':</strong> ' + val + '</li>';
-						});
+		
+		/* Book list  */
+		var $book_list_tab = $("#book-list-tab");
+		$book_list_tab.click(function(){ 
+			event.preventDefault();
+			$.getJSON(
+				'/books/',
+				{ },
+				function(jsonData) {
+				
+					check_login_or_redirect(jsonData, function(jsonData){
+					 
+						var booklet;
+					    var booklist = jsonData;
+					    var pageTotal = $('#mybook').booklet("option").pageTotal
+					    
+					    var booksHtmls = [];								    
+					    for(var i=0; i< booklist.length ; i++){
+						    var book = booklist[i];	
+						    console.log(book);
+						    booksHtmls.push(newBookHtml(book));  		
+					    }
+					    change_pages_content(booksHtmls);
 						
-						bookHtml += "</ul>";
-						bookHtml += "</div>";
-						
-						return bookHtml;
-					};
+					 });
+				}
+			);			
+		});
+		
+		
+		/* return the new book html */			
+		function newBookHtml(book){
+			var bookHtml = "<div><h1>Book List</h1>";
+			bookHtml += "<h2>"+ book.name + "</h2>";
+			bookHtml += "<ul>";
+			$.each(book, function(key, val) {
+				if(key == 'author' || key ==  'publisher' || key == 'purchase_store'){
+					if(val != null)
+						bookHtml += '<li><strong>' + key + ':</strong> ' + val.name + '</li>';
+				}
+				else{
+					bookHtml += '<li><strong>' + key + ':</strong> ' + val + '</li>';
+				}
+				
+			});
+			
+			bookHtml += "</ul>";
+			bookHtml += "</div>";
+			
+			return bookHtml;
+		};
+		
+		/** This function is the one that is going to change the pages
+			So a new html array is passe to it, and it arranges each element in a new page, removing the old ones.
+		 **/
+		function change_pages_content(pagesHtmlList){
+		    var pageTotal = $('#mybook').booklet("option").pageTotal;
+		    console.log("pageTotal:"+pageTotal);
+		    if(pagesHtmlList.length % 2 != 0){
+		    	pagesHtmlList.push("<div></div>");
+		    }
+		    for(var i=0; i< pagesHtmlList.length ; i++){
+			    var pageHtml = pagesHtmlList[i];	
+			    console.log(pageHtml);
+			    booklet = $('#mybook').booklet("add", "end", pageHtml);      		
+		    }
+		    
+			booklet.bind("bookletchange", function(event, data) {
+			
+				//clearign the other page books 
+			    for(var i=0; i< pageTotal; i++){
+			    	console.log("removing:"+ i);
+			    	booklet.booklet("remove", "start"); 
+			    }
+		    	booklet.unbind("bookletchange");
+		    	booklet = booklet.booklet("gotopage","start");
+			});
+			
+		    booklet = booklet.booklet("gotopage","end");
+		
+		}
 {% endblock %}
 
 {% block 'body-header' %}

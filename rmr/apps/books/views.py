@@ -25,6 +25,13 @@ from books.models import Book
 
 class BookCollectionResource(JSONMixin, CollectionResource):
     model = Book
+#    fields = ['name','id','author','publisher','purchase_store']
+    
+    relationships = {
+        'author': {},         
+        'publisher': {},         
+        'purchase_store': {},      
+    }
     
     @method_decorator(ajax_login_required)
     def dispatch(self, *args, **kwargs):
