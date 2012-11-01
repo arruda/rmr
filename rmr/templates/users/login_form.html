@@ -1,12 +1,7 @@
-{% extends "util/base.html"%}
-{% block 'body-content' %}
-
-	<form action="{% url login %}" method="post" id="login-form">
+<div id="login">
+	<h1>Login</h1>
+	<form action="#login" method="post" id="login-form">
 		{% csrf_token %}
-   		<input type="hidden" name="next" value="{{ next }}" />
-		{% if form.errors %}
-    		<p class="form-error">User or password incorrect. Try Again.</p>
-	    {% endif %}
 		<p>
 			<label for="id_username" class="required">Email:</label>
 			<input class="radius" id="id_username"  name="username" maxlength="30" />
@@ -18,5 +13,4 @@
 		</p>
 		<input type="submit" value="Login" />
 	</form>
-	
-{% endblock %}
+</div>	

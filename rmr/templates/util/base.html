@@ -15,15 +15,54 @@
 
 {% block 'jquery-docready' %}
 {{ block.super }}
+
+		
 		/** Check if the given data contains the 'not_authenticated' key as true,
 		 if so then change the page to the login page. else simply return the correct data **/
 		function check_login_or_redirect(data, callback){
 			console.log("here");
 		    if(data.not_authenticated){
 		    	console.log("not authenticated");
+		    	redirectLogin();
 		    	return false;
 		    }
 			callback(data);
+		}
+		
+		/* 'redirect' to login page */ 
+		function redirectLogin(){
+			getLoginHtml(function(loginHtml){
+				var newPagesHtml =[];
+				newPagesHtml.push(loginHtml);
+				change_pages_content(newPagesHtml);
+				console.log("new login button");
+				var login_submit = $("#login-form input:submit");
+				login_submit.click(function(){
+					event.preventDefault();
+					console.log("preveniu");
+				});
+				
+				console.log($("#login-form input:submit"));
+			});				
+		}
+		
+		/* return the login html */			
+		function getLoginHtml(callback){
+			$.get('{% url login_form_ajax %}', function(data){
+			   callback(data);
+			});
+		};				
+		
+		/* Login  tab*/
+		var $login_tab = $("#login-tab");
+		$login_tab.click(function(){ 
+			event.preventDefault();
+			redirectLogin();
+		});
+		
+		function doLogin(){
+			var login_form = $("#login-form");
+			
 		}
 		
 		var $mybook 		= $('#mybook');
@@ -104,6 +143,9 @@
 			
 			return bookHtml;
 		};
+		
+		
+		
 		
 		/** This function is the one that is going to change the pages
 			So a new html array is passe to it, and it arranges each element in a new page, removing the old ones.
