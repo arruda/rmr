@@ -18,7 +18,12 @@ urlpatterns = patterns('',
 urlpatterns += patterns('',               
 
     url(r'^login_form_ajax/$', direct_to_template, {'template': 'users/login_form.html'}, name='login_form_ajax'),  
-        
+
+)
+
+urlpatterns += patterns('accounts.views',               
+
+    url(r'^login/$', 'login_ajax', name='login_ajax'),
 
 )
 

@@ -39,7 +39,7 @@
 				var login_submit = $("#login-form input:submit");
 				login_submit.click(function(){
 					event.preventDefault();
-					console.log("preveniu");
+					doLogin();
 				});
 				
 				console.log($("#login-form input:submit"));
@@ -62,6 +62,10 @@
 		
 		function doLogin(){
 			var login_form = $("#login-form");
+			$.post('{% url login_ajax %}', login_form.serialize(), function (data) {
+		        console.log(data);
+		        gotoBookList();
+		    }, "json");
 			
 		}
 		
@@ -97,6 +101,11 @@
 		var $book_list_tab = $("#book-list-tab");
 		$book_list_tab.click(function(){ 
 			event.preventDefault();
+			gotoBookList();
+		});
+		
+		/* go to book list pages */
+		function gotoBookList(){		
 			$.getJSON(
 				'/books/',
 				{ },
@@ -119,8 +128,7 @@
 					 });
 				}
 			);			
-		});
-		
+		}
 		
 		/* return the new book html */			
 		function newBookHtml(book){

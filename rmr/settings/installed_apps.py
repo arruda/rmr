@@ -16,6 +16,7 @@ INSTALLED_APPS = (
     'south',
 
 #apps
+    'accounts',
     'books',
     'authors',
     'publishers',
