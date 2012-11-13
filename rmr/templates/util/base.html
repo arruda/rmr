@@ -62,10 +62,35 @@
 		
 		function doLogin(){
 			var login_form = $("#login-form");
-			$.post('{% url login_ajax %}', login_form.serialize(), function (data) {
-		        console.log(data);
-		        gotoBookList();
-		    }, "json");
+			login_form.find(".error").remove();
+			$.post('{% url login_ajax %}', login_form.serialize(),
+				 function (data) {
+			        console.log(data);
+			        if(data.errors !== undefined){
+			        
+	                    //for each field in the errrors
+	                    $.each(data.errors, function(key, value) { 
+	                       	var field = login_form;
+	                       	
+	                       	//if it's not a general error, than add it to the expecific field
+	                       	//else just add it to the form
+	                    	if(key != "__all__"){
+	                       		var field = login_form.find("[name='" + key + "']").parent();
+	                    	}
+	
+	                        //add each error to the given field
+	                        $.each(value, function(index, val){
+	                           field.prepend("<span class='error'>"+val+"</span>");
+	
+	                        });
+	                    });
+			        
+			        
+			        }
+			        else{
+			        	gotoBookList();
+			        }
+		    	 }, "json");
 			
 		}
 		

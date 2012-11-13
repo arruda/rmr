@@ -22,7 +22,7 @@ def login_ajax(request):
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-
+            print "valid"
             # Use default setting if redirect_to is empty
 #            redirect_to = settings.LOGIN_REDIRECT_URL
 
@@ -43,5 +43,5 @@ def login_ajax(request):
 
 
     return {
-            'login_form': form.errors,
+            'errors': form.errors,
             }
