@@ -16,10 +16,10 @@ from django.utils.translation import ugettext_lazy as _
 from model_utils import Choices
 from taggit.managers import TaggableManager
 
-from utils.abs_models import Abs_Named_Model
+from utils.abs_models import Abs_Named_Model, Abs_AsJson_Model
 
 
-class Book(Abs_Named_Model):
+class Book(Abs_Named_Model, Abs_AsJson_Model):
     "a book. simple as that"
     #author
     #publisher    
@@ -58,6 +58,23 @@ class Book(Abs_Named_Model):
     
     class Meta:
         app_label = 'books'
+        
+    def _prepare_json(self):       
+        book_json = super(Book, self)._prepare_json()
+        
+        book_json['author'] = None if self.author == None else self.author._prepare_json()
+        book_json['publisher'] = None if self.publisher == None else self.publisher._prepare_json()
+        book_json['synopsis'] = [self.synopsis,]
+#        book_json['genres'] = [self.synopsis,]
+        book_json['release_date'] = [self.release_date,]
+        book_json['desired'] = [self.desired, self.DESIRE_CHOICES[self.desired-1][1]._proxy____unicode_cast()]
+        book_json['purchase_store'] = None if self.purchase_store == None else self.purchase_store._prepare_json()
+        book_json['purchased'] = [self.purchased, ]
+        book_json['purchase_value'] = [self.purchase_value, ]
+        book_json['purchase_date'] = [self.purchase_date, ]
+        
+        return book_json
+    
         
     def save(self, *args, **kwargs):
         """

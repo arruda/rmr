@@ -139,7 +139,7 @@
 					check_login_or_redirect(jsonData, function(jsonData){
 					 
 						var booklet;
-					    var booklist = jsonData;
+					    var booklist = jsonData.books;
 					    var pageTotal = $('#mybook').booklet("option").pageTotal
 					    
 					    var booksHtmls = [];								    
@@ -164,6 +164,9 @@
 				if(key == 'author' || key ==  'publisher' || key == 'purchase_store'){
 					if(val != null)
 						bookHtml += '<li><strong>' + key + ':</strong> ' + val.name + '</li>';
+				}
+				else if(key == 'desired'){
+					bookHtml += '<li><strong>' + key + ':</strong> ' + val[1] + '</li>';				
 				}
 				else{
 					bookHtml += '<li><strong>' + key + ':</strong> ' + val + '</li>';

@@ -7,35 +7,21 @@
     
     :copyright: (c) 2012 by arruda.
 """
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-#sliver objects
-from sliver.views import ModelResource, CollectionResource
-from sliver.mixins import JSONMixin
 
-from utils.decorators import ajax_login_required
+from utils.decorators import ajax_login_required, JsonResponse
 
 #your data
 from books.models import Book
 
-
-#def list_books(request):
-#    "list the books of the logged user"
-#    books =
-
-class BookCollectionResource(JSONMixin, CollectionResource):
-    model = Book
-#    fields = ['name','id','author','publisher','purchase_store']
+@ajax_login_required
+def list_books(request):
+    "list the books of the logged user"
     
-    relationships = {
-        'author': {},         
-        'publisher': {},         
-        'purchase_store': {},      
-    }
-    
-    @method_decorator(ajax_login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(BookCollectionResource, self).dispatch(*args, **kwargs)
+    books = Book.objects.filter()
+    books_json = []
+    for book in books:
+        books_json.append(book._prepare_json())
+        
+    return JsonResponse({'books':books_json})
 
-class BookResource(JSONMixin, ModelResource):
-    model = Book
+    

@@ -26,3 +26,26 @@ class Abs_Named_Model(models.Model):
 
     def __unicode__(self):
         return self.name
+
+class Abs_AsJson_Model(models.Model):    
+    """
+    A Class that has 2 methods: _prepare_json and as_json
+    """
+    
+    class Meta:
+        abstract = True
+        
+    def _prepare_json(self):
+        
+        json = {}
+        json['id'] = self.id        
+        json['name'] = self.name
+        
+        return json
+    
+    def as_json(self):
+        "this book in json format"
+        from django.utils import simplejson
+        from django.core.serializers.json import DjangoJSONEncoder
+        
+        return simplejson.dumps(self._prepare_json(), cls=DjangoJSONEncoder)

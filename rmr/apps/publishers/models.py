@@ -8,10 +8,10 @@
     :copyright: (c) 2012 by arruda.
 """
 
-from utils.abs_models import Abs_Named_Model
+from utils.abs_models import Abs_Named_Model, Abs_AsJson_Model
 
 
-class Publisher(Abs_Named_Model):
+class Publisher(Abs_Named_Model,Abs_AsJson_Model):
     "a book publisher"
     class Meta:
         app_label = 'publishers'
