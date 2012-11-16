@@ -183,6 +183,27 @@
 		
 		
 		
+		/* Add Book  */
+		var $add_book_tab = $("#book-list-tab");
+		$book_list_tab.click(function(){ 
+			event.preventDefault();
+			gotoAddBook();
+		});
+		
+		/* go to add book pages */
+		function gotoAddBook(){		
+			var new_pages = [];
+			
+		    change_pages_content(booksHtmls);	
+		}
+		
+		/* return the new book form html */			
+		function getNewBookFormHtml(callback){
+			$.get('{% url login_form_ajax %}', function(data){
+			   callback(data);
+			});
+		};				
+		
 		/** This function is the one that is going to change the pages
 			So a new html array is passe to it, and it arranges each element in a new page, removing the old ones.
 		 **/
@@ -237,7 +258,7 @@
             <div id="tabs">
                 <ul>
                     <li>
-                        <a href="#/page/1" id="login-tab">Login</a>
+                        <a href="#" id="login-tab">Login</a>
                     </li>
 
                     <li>                        
@@ -245,7 +266,7 @@
                     </li>
                     
                     <li>
-                        <a href="#/page/5">Add Books</a>
+                        <a href="#">Add Books</a>
                     </li>
 
                 </ul>
