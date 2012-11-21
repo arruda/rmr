@@ -1,2 +1,13 @@
 <div id="side" >			
+	<nav class="opt_menu adjust_height">
+		{% if request.user.is_authenticated %}
+			<ul>
+				<li><a href="#" >Members</a></li>
+				<li><a href="#" >Projects</a></li>
+				<li><a href="#" >Tasks</a></li>
+				<li><a href="#">Finances</a></li>
+				
+			</ul>
+		{% endif %}
+	</nav>
 </div>
