@@ -1,7 +1,17 @@
 {% extends "util/base.html"%}
 
 {% block 'body-content' %}
-<h1>Book List</h1>
+	<h1>Book List</h1>
+	
+	<div>
+		<h2>Filters:</h2>
+		<form action="{% url filter_books %}" method="get">
+			{{ filter_form.as_ul}}
+			
+			<input type="submit" value="Filter" />
+		</form>
+	</div>	
+
 	{% for book in books %}
 		{{ book.name }}	
 	{% endfor %}

@@ -15,7 +15,7 @@ from books.models import Book, Genre
 
 class BookAdmin(admin.ModelAdmin):
     fieldsets = [
-           (_('Book Informations'),               {'fields': ['name','synopsis','author','publisher','release_date','desired','genres']}),
+           (_('Book Informations'),               {'fields': ['user','name','synopsis','author','publisher','release_date','desired','genres']}),
            (_('Purchase Informations'),               {'fields': ['purchased','purchase_value','purchase_date','purchase_store'], 'classes': ['collapse']}),
     ]
 
