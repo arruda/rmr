@@ -12,7 +12,11 @@
 		</form>
 	</div>	
 
-	{% for book in books %}
-		{{ book.name }}	
-	{% endfor %}
+	<div>
+		<ul>
+		{% for book in books %}			
+			<li>{{ book.name }}	</li>
+		{% endfor %}
+		</ul>
+	</div>
 {% endblock %}
