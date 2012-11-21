@@ -1,0 +1,8 @@
+{% extends "util/base.html"%}
+
+{% block 'body-content' %}
+<h1>Book List</h1>
+	{% for book in books %}
+		{{ book.name }}	
+	{% endfor %}
+{% endblock %}

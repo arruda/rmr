@@ -49,3 +49,12 @@ class Abs_AsJson_Model(models.Model):
         from django.core.serializers.json import DjangoJSONEncoder
         
         return simplejson.dumps(self._prepare_json(), cls=DjangoJSONEncoder)
+
+
+class Abs_UserConected_Model(models.Model):
+    "a model conected to a user"
+    
+    user = models.ForeignKey('auth.User')
+    
+    class Meta:
+        abstract = True

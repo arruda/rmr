@@ -14,7 +14,5 @@ urlpatterns = patterns('books.views',
 #    url(r'^$', 'index'),
 #    url(r'^exibir/(?P<template_id>\d+)/$', 'exibir',name='exibir_avaliacao'),     
  
-   url(r'^$', 'list_books', name='list_books'),     
-#    url(r'^$', BookCollectionResource.as_view(), name='api-books-collection'),     
-#    url(r'^(?P<pk>\d+)/$', BookResource.as_view(), name='api-books-model'),   
+   url(r'^$', 'filter', name='filter_books'),     
 )

@@ -9,22 +9,8 @@
 """
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from books.models import Book
+from books.models import Book, Genre
 
-def func_attr(self, attr):
-    return self.__getattribute__(attr)
-
-def html_attr(desc, attr):
-    func = lambda x: func_attr(x, attr)
-    func.short_description = desc
-    func.allow_tags = True
-    return func
-
-class Genres(str):
-    short_description = 'Genres'
-    
-genres = Genres('genres__name')
-#genres.__setattr__('short_description','Genres')# short_description = 'Genres'
 
 
 class BookAdmin(admin.ModelAdmin):
@@ -40,3 +26,5 @@ class BookAdmin(admin.ModelAdmin):
     search_fields = ['name','author__name','publisher__name']
 
 admin.site.register(Book, BookAdmin)
+
+admin.site.register(Genre, admin.ModelAdmin)
