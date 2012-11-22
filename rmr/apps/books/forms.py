@@ -17,6 +17,22 @@ from model_utils import Choices
 
 from books.models import Book
 
+
+class NewBookForm(forms.ModelForm):
+    "a new book form"
+    
+    class Meta:
+        model = Book
+        exclude = ('user',)
+        
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super(NewBookForm, self).__init__(*args, **kwargs)
+        self.fields['author'].queryset = user.author_set.all()     
+        self.fields['publisher'].queryset = user.publisher_set.all() 
+        self.fields['purchase_store'].queryset = user.store_set.all()    
+    
+
 class BookFilterForm(forms.Form):
     "filters parameters for books"
     

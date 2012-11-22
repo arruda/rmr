@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    apps.books.urls
+    apps.authors.urls
     ~~~~~~~~~~~~~~
 
     desciption
@@ -10,10 +10,9 @@
 
 from django.conf.urls.defaults import patterns, include, url
 
-urlpatterns = patterns('books.views',
+urlpatterns = patterns('authors.views',
 #    url(r'^$', 'index'),
 #    url(r'^exibir/(?P<template_id>\d+)/$', 'exibir',name='exibir_avaliacao'),     
- 
-   url(r'^$', 'filter', name='filter_books'),     
-   url(r'^new/$', 'new', name='new_book'),     
+     
+   url(r'^new/$', 'new', name='new_author'),     
 )

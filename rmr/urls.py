@@ -12,6 +12,7 @@ urlpatterns = patterns('',
                        
      url(r'^admin/', include(admin.site.urls)),
      url(r'^books/', include('books.urls')),
+     url(r'^authors/', include('authors.urls')),
      url(r'^$', direct_to_template, {'template': 'index.html'}, name='index'),
 )
 

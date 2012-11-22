@@ -1,0 +1,14 @@
+{% extends "util/base.html"%}
+
+{% block 'body-content' %}
+	<h1>New Book</h1>
+	
+
+	<div>
+		<form action="{% url new_book %}" method="post" id="newbk-form">
+			{% csrf_token %}
+			{{ form.as_ul }}
+			<input type="submit" value="Create" />
+		</form>
+	</div>
+{% endblock %}
