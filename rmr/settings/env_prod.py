@@ -6,7 +6,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 SERVE_MEDIA = False
 
-MEDIA_SERVER_URL = 'http://sdpm.arruda.blog.br'
+MEDIA_SERVER_URL = 'http://rmr.arruda.blog.br'
 MEDIA_URL = MEDIA_SERVER_URL+'/media/'
 STATIC_URL = MEDIA_SERVER_URL+'/static/'
 
