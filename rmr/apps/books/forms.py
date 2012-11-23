@@ -15,7 +15,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from model_utils import Choices
 
-from books.models import Book
+from books.models import Book, Genre
 
 
 class NewBookForm(forms.ModelForm):
@@ -31,6 +31,15 @@ class NewBookForm(forms.ModelForm):
         self.fields['author'].queryset = user.author_set.all()     
         self.fields['publisher'].queryset = user.publisher_set.all() 
         self.fields['purchase_store'].queryset = user.store_set.all()    
+    
+
+class NewGenreForm(forms.ModelForm):
+    "a new Genre form"
+    
+    class Meta:
+        model = Genre
+        exclude = ('user',)
+        
     
 
 class BookFilterForm(forms.Form):

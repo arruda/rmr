@@ -13,10 +13,32 @@
 	</div>	
 
 	<div>
-		<ul>
 		{% for book in books %}			
-			<li>{{ book.name }}	</li>
+			<div class="sub_content">
+				<ul>
+					<li>
+						<strong>Name:</strong> {{ book.name }} 
+					</li>
+					<li>
+						<strong>Desired Level:</strong> {{ book.desired_text }} 
+					</li>
+					<li>
+						<strong>Purchased:</strong> {{ book.purchased }} 
+					</li>
+					<li>
+						<strong>Author:</strong> {{ book.author }} 
+					</li>
+					<li>
+						<strong>Publisher:</strong> {{ book.publisher }} 
+					</li>
+					{% if book.purchased %}							
+						<li>
+							<strong>Price:</strong> {{ book.purchase_value }} 
+							<strong>Date Bought:</strong> {{ book.purchase_date }} 
+						</li>
+					{% endif %}
+				</ul>
+			</div>
 		{% endfor %}
-		</ul>
 	</div>
 {% endblock %}

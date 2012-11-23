@@ -205,6 +205,12 @@ header {
 }
 
 
+.sub_content{
+	border-bottom-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border: 1px solid #222;
+	margin: 10px 0;
+}
 
 /**************************** FOOTER  ****************************/
 
@@ -225,131 +231,5 @@ footer {
 
 #footer_content {
 	width: 965px;
-}
-
-
-/* ===================== Booklet jQuery Plugin Style=====================*/
-.booklet{
-	-moz-box-shadow:0px 0px 1px #fff;
-	-webkit-box-shadow:0px 0px 1px #fff;
-	box-shadow:0px 0px 1px #fff;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border-radius:10px;
-}
-.booklet .b-wrap-left  {
-	background:#fff url(../images/left_bg.jpg) no-repeat top left;
-	-webkit-border-top-left-radius: 10px;
-	-webkit-border-bottom-left-radius: 10px;
-	-moz-border-radius-topleft:10px;
-	-moz-border-radius-bottomleft: 10px;
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
-}
-.booklet .b-wrap-right {
-	background:#efefef url(../images/right_bg.jpg) no-repeat top left;
-	-webkit-border-top-right-radius: 10px;
-	-webkit-border-bottom-right-radius: 10px;
-	-moz-border-radius-topright: 10px;
-	-moz-border-radius-bottomright: 10px;
-	border-top-right-radius: 10px;
-	border-bottom-right-radius: 10px;
-}
-.booklet .b-counter {
-	bottom:10px;
-	position:absolute;
-	display:block;
-	width:90%;
-	height:20px;
-	border-top:1px solid #ddd;
-	color:#222;
-	text-align:center;
-	font-size:12px;
-	padding:5px 0 0;
-	background:transparent;
-	-moz-box-shadow:0px -1px 1px #fff;
-	-webkit-box-shadow:0px -1px 1px #fff;
-	box-shadow:0px -1px 1px #fff;
-	opacity:0.8;
-}
-.book_wrapper{
-	margin:0 auto;
-	padding-top:55px;
-	width:1017px;
-	height:701px;
-	position:relative;
-	background:transparent url(../images/bg.png) no-repeat 9px 27px;
-}
-.book_wrapper h1{
-	color:#13386a;
-	margin:5px 5px 5px 15px;
-	font-size:26px;
-    /*	
-    background:transparent url(../images/h1.png) no-repeat bottom left;
-    */
-	padding-bottom:7px;
-}
-.book_wrapper p{
-	font-size:16px;
-	margin:5px 5px 5px 15px;
-}
-
-
-a#next_page_button,
-a#prev_page_button{
-	display:none;
-	position:absolute;
-	width:41px;
-	height:40px;
-	cursor:pointer;
-	margin-top:-20px;
-	top:50%;
-	background:transparent url(../images/buttons.png) no-repeat 0px -40px;
-}
-a#prev_page_button{
-	left:-30px;
-}
-a#next_page_button{
-	right:-30px;
-	background-position:-41px -40px;
-}
-a#next_page_button:hover{
-	background-position:-41px 0px;
-}
-a#prev_page_button:hover{
-	background-position:0px 0px;
-}
-
-
-
-
-
-/* ===================== BOOKMARKERS=====================*/
-#tabs{
-    position: absolute;
-    margin-top: -55px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    right: 50%;
-    width: 410px;
-}
-#tabs ul{
-	list-style-image: none;
-	list-style: none;
-	list-style-type: none;
-    
-    float: right;
-}
-#tabs li{   
-	background:transparent url(../images/bmark.png) no-repeat;
-    background-position:center top;
-    background-size: 100% 100px;
-    display: inline;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
 }
 

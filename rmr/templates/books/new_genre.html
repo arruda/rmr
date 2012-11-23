@@ -1,0 +1,14 @@
+{% extends "util/base.html"%}
+
+{% block 'body-content' %}
+	<h1>New Genre</h1>
+	
+
+	<div>
+		<form action="{% url new_genre %}" method="post" id="newgenre-form">
+			{% csrf_token %}
+			{{ form.as_ul }}
+			<input type="submit" value="Create" />
+		</form>
+	</div>
+{% endblock %}

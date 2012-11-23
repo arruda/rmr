@@ -15,5 +15,6 @@ urlpatterns = patterns('books.views',
 #    url(r'^exibir/(?P<template_id>\d+)/$', 'exibir',name='exibir_avaliacao'),     
  
    url(r'^$', 'filter', name='filter_books'),     
-   url(r'^new/$', 'new', name='new_book'),     
+   url(r'^new/$', 'new', name='new_book'),       
+   url(r'^new_genre/$', 'new_genre', name='new_genre'),     
 )
