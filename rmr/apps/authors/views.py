@@ -17,7 +17,7 @@ from authors.forms import NewAuthorForm
 @login_required
 @render_to("authors/new.html")
 def new(request):
-    "create a new book for the logged user"
+    "create a new author for the logged user"
     
     if request.method == 'POST':
         form = NewAuthorForm(request.POST)
