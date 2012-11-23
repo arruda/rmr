@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-    apps.publishers.forms
+    apps.stores.forms
     ~~~~~~~~~~~~~~
 
-    publishers forms
+    stores forms
     
     :copyright: (c) 2012 by arruda.
 """
@@ -12,13 +12,13 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from publishers.models import Publisher
+from stores.models import Store
 
 
-class NewPublisherForm(forms.ModelForm):
-    "a new Publisher form"
+class NewStoreForm(forms.ModelForm):
+    "a new Store form"
     
     class Meta:
-        model = Publisher
+        model = Store
         exclude = ('user',)
         
