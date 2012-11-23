@@ -15,7 +15,7 @@ yolk
 PyYaml
 
 #django-silver
--e git+git://github.com:jarcoal/django-sliver.git#egg=django-sliver
+#-e git+git://github.com:jarcoal/django-sliver.git#egg=django-sliver
 
 #heroku
 dj-database-url==0.2.1
