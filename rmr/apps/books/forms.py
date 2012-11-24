@@ -31,6 +31,7 @@ class NewBookForm(forms.ModelForm):
         self.fields['author'].queryset = user.author_set.all()     
         self.fields['publisher'].queryset = user.publisher_set.all() 
         self.fields['purchase_store'].queryset = user.store_set.all()    
+        self.fields['genres'].queryset = user.genre_set.all()    
     
 
 class NewGenreForm(forms.ModelForm):
