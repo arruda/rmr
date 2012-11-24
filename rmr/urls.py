@@ -15,7 +15,6 @@ urlpatterns = patterns('',
      url(r'^authors/', include('authors.urls')),
      url(r'^publishers/', include('publishers.urls')),
      url(r'^stores/', include('stores.urls')),
-     url(r'^$', direct_to_template, {'template': 'index.html'}, name='index'),
 )
 
 
@@ -29,6 +28,7 @@ urlpatterns += patterns('django.contrib.auth.views',
 urlpatterns += patterns('accounts.views',               
 
     url(r'^register/$', 'register', name='register_user'),  
+     url(r'^$','index', name='index'),
 
 )
 

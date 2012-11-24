@@ -42,3 +42,11 @@ def register(request):
         form = RegistrationForm()
 
     return locals()
+
+@render_to('index.html')
+def index(request):
+    "show index if not logged or redirect to books list"
+    if request.user != None and request.user.is_authenticated():
+        return redirect('filter_books')
+    
+    return locals()
