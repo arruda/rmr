@@ -7,41 +7,38 @@
     
     :copyright: (c) 2012 by arruda.
 """
-from django.contrib.auth import login as auth_login, logout as auth_logout
-from django.contrib.auth.forms import AuthenticationForm
 
+from django.contrib.auth import login
+from django.shortcuts import redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from annoying.decorators import render_to
 
-from annoying.decorators import ajax_request
+from django.contrib.auth.models import User
 
-@ajax_request
-def login_ajax(request):
-    """
-    Displays the login form and handles the login action.
-    """
+from accounts.forms import RegistrationForm
 
-    if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            print "valid"
-            # Use default setting if redirect_to is empty
-#            redirect_to = settings.LOGIN_REDIRECT_URL
-
-
-            # Okay, security checks complete. Log the user in.
-            auth_login(request, form.get_user())
-
-            if request.session.test_cookie_worked():
-                request.session.delete_test_cookie()
-
-            return {
-                    'ok': True,
-                    }
+@render_to('users/register.html')
+def register(request): 
+    if request.user != None and request.user.is_authenticated():
+        return redirect('/')
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid(): 
+            #Create the user
+            email = form.cleaned_data.get('email')
+            passwd = form.cleaned_data.get('password1')
+            
+            user = User(email=email)
+            user.set_password(passwd)            
+            user.save()
+            user.username = user.pk 
+            user.save()
+            user.backend='user_backends.email_username.EmailOrUsernameModelBackend'
+                        
+            #logs the new user
+            login(request,user)
+            return redirect('/')
     else:
-        form = AuthenticationForm(request)
+        form = RegistrationForm()
 
-    request.session.set_test_cookie()
-
-
-    return {
-            'errors': form.errors,
-            }
+    return locals()

@@ -26,6 +26,11 @@ urlpatterns += patterns('django.contrib.auth.views',
         
 
 )
+urlpatterns += patterns('accounts.views',               
+
+    url(r'^register/$', 'register', name='register_user'),  
+
+)
 
 if settings.SERVE_MEDIA:
     

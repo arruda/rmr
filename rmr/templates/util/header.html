@@ -1,6 +1,6 @@
 
 <div id='top_menu' class="clearfix" >
-	<a href="#"><h1 class='logo'>Readers Must Read</h1></a>
+	<a href="/"><h1 class='logo'>Readers Must Read</h1></a>
 	
 	<nav>
 	
@@ -8,7 +8,7 @@
 		        <a href="#" class='opt_right'>{{request.user.email}}</a>            
 		        <a href="{% url logout %}" >Logout</a>
 		{% else %}           
-		        <a href="#" >Register</a>
+		        <a href="{% url register_user %}" >Register</a>
 		        <a href="{% url login %}" >Login</a>           
 		{% endif %}
 	</nav> 
