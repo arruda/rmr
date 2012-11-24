@@ -15,6 +15,7 @@ urlpatterns = patterns('',
      url(r'^authors/', include('authors.urls')),
      url(r'^publishers/', include('publishers.urls')),
      url(r'^stores/', include('stores.urls')),
+     url(r'^faqs/$', direct_to_template, {'template': 'faqs.html'}, name='faqs'),
 )
 
 
