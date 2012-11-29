@@ -32,11 +32,11 @@ class Book(Abs_Named_Model, Abs_UserConected_Model):
     #purchase_store
     
     DESIRE_CHOICES = Choices(
-                             (1,'curious',_("Curious About")),
-                             (2,'collection',_("Complete Collection")),
-                             (3,'survive',_("Can Survive Without It")),
-                             (4,'wait',_("Can Wait a Little Longer")),
-                             (5,'now',_("I NEED THIS... NOW!!!")),
+                             (1,'curious',_("1 - Curious About")),
+                             (2,'collection',_("2 - Complete Collection")),
+                             (3,'survive',_("3 - Can Survive Without It")),
+                             (4,'wait',_("4 - Can Wait a Little Longer")),
+                             (5,'now',_("5 - I NEED THIS... NOW!!!")),
                      )
     
     author = models.ForeignKey('authors.Author',related_name='books')
