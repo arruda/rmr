@@ -8,7 +8,99 @@
 		<form action="{% url new_book %}" method="post" id="newbk-form">
 			{% csrf_token %}
 			{{ form.as_ul }}
+			<a href="#"  class="add-another" id="new_author">+</a>
 			<input type="submit" value="Create" />
 		</form>
 	</div>
+	
+    <div id="model-dialog-modal" title="New Model">
+        <form id="model-dl-form">
+            <ul style="list-style:none;">
+                <li>
+                    <label for="name">Name</label>
+                    <input id="id_name" type="text" name="name" maxlength="250" />
+                </li>
+            </ul>
+        </form>
+    </div>
+{% endblock %}
+
+{% block 'jquery-docready' %}
+{{ block.super }}
+
+            $( "#model-dialog-modal" ).dialog({
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    Ok: function() {                        
+                        var new_form = $("#model-dl-form");
+
+                        $.post('{% url ajax_new_author %}',
+                            new_form.serialize(),
+                            function(data) {
+                            	if(data.errors !== undefined){
+					                //for each field in the errrors
+				                    $.each(data.errors, function(key, value) { 
+				                       	var field = new_form;
+			
+				                       	//if it's not a general error, than add it to the expecific field
+				                       	//else just add it to the form
+				                    	if(key != "__all__"){
+				                       		var field = new_form.find("[name='" + key + "']").parent();
+				                    	}
+			
+				                        //add each error to the given field
+				                        $.each(value, function(index, val){
+				                           field.prepend("<span class='error'>"+val+"</span>");
+			
+				                        });
+				                    });
+			                    }
+                            	else{
+	                                console.log(data);
+	
+	
+	
+	                                //add the new model to the list
+	                                var model_list = $("#newbk-form #id_author");
+	                                
+	                                model_list.append("<option value='"+ data.id +"' selected>"+ data.name +"</option>");
+	
+	                                $( "#model-dialog-modal" ).dialog( "close" );
+                            	}
+
+                            },"json");
+                
+
+                    },
+                    Cancel: function() {
+                        $( this ).dialog( "close" );
+                    }
+                },
+                close: function() {                   
+                    $( this ).dialog( "close" );
+                    var new_form = $( this ).find("#model-dl-form");
+
+                    new_form.find("input").val("");
+                    new_var_form.find(".error").remove();   
+                }
+            });
+	
+		
+                
+            //change the add buttons to add new contents
+            $('#new_author').click(function(){
+                event.preventDefault();
+                
+                var dialog = $( "#model-dialog-modal" );
+                console.log("new_author");          
+                      
+                $('.ui-dialog-title').html("New Author");  
+                dialog.dialog( "open" );    
+            });
+            
+		    $("#model-dl-form").live("click", function(event){
+		        event.preventDefault();
+		    });
+
 {% endblock %}

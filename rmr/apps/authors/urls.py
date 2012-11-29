@@ -14,5 +14,6 @@ urlpatterns = patterns('authors.views',
 #    url(r'^$', 'index'),
 #    url(r'^exibir/(?P<template_id>\d+)/$', 'exibir',name='exibir_avaliacao'),     
      
-   url(r'^new/$', 'new', name='new_author'),     
+   url(r'^new/$', 'new', name='new_author'),  
+   url(r'^new_ajax/$', 'new_ajax', name='ajax_new_author'),     
 )
