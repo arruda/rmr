@@ -7,8 +7,58 @@
 	<div>
 		<form action="{% url new_book %}" method="post" id="newbk-form">
 			{% csrf_token %}
-			{{ form.as_ul }}
-			<a href="#"  class="add-another" id="new_author">+</a>
+			<li>
+				{{ form.name.errors }}
+				{{ form.name.label_tag }} {{ form.name }} 				
+			</li>
+			<li>
+				{{ form.desired.errors }}
+				{{ form.desired.label_tag }} {{ form.desired }} 		
+			</li>	
+			<li>
+				{{ form.author.errors }}
+				{{ form.author.label_tag }} {{ form.author }} <a href="#"  class="add-another" id="new_author">+</a>				
+			</li>
+			<li>
+				{{ form.publisher.errors }}
+				{{ form.publisher.label_tag }} {{ form.publisher }} <a href="#"  class="add-another" id="new_publisher">+</a>		
+			</li>			
+			<li>
+				{{ form.synopsis.errors }}
+				{{ form.synopsis.label_tag }} {{ form.synopsis }}
+			</li>
+			
+			<li>
+				{{ form.genres.errors }}
+				{{ form.genres.label_tag }} {{ form.genres }} <a href="#"  class="add-another" id="new_publisher">+</a>		
+			</li>	
+			
+			<li>
+				{{ form.release_date.errors }}
+				{{ form.release_date.label_tag }} {{ form.release_date }} 		
+			</li>	
+			
+			<li>
+				{{ form.purchase_store.errors }}
+				{{ form.purchase_store.label_tag }} {{ form.purchase_store }} <a href="#"  class="add-another" id="new_purchase_store">+</a>
+			</li>	
+			
+			<li>
+				{{ form.purchased.errors }}
+				{{ form.purchased.label_tag }} {{ form.purchased }}
+			</li>	
+			
+			<li>
+				{{ form.purchase_value.errors }}
+				{{ form.purchase_value.label_tag }} {{ form.purchase_value }}
+			</li>	
+			
+			<li>
+				{{ form.purchase_date.errors }}
+				{{ form.purchase_date.label_tag }} {{ form.purchase_date }}
+			</li>	
+			
+			
 			<input type="submit" value="Create" />
 		</form>
 	</div>
