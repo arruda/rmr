@@ -38,6 +38,7 @@
 {% block 'jquery-docready' %}
 {{ block.super }}
 
+			//new model dialog
             $( "#model-dialog-modal" ).dialog({
                 autoOpen: false,
                 modal: true,
@@ -139,5 +140,14 @@
 		    $("#model-dl-form").live("click", function(event){
 		        event.preventDefault();
 		    });
+
+
+			//datepicker			
+	        $( "#id_purchase_date" ).datepicker({
+	            showOn: "button",
+	            buttonImage: "{{ STATIC_URL}}images/calendar.png",
+	            buttonImageOnly: true,
+	            dateFormat: "dd/mm/yy"
+	        });
 
 {% endblock %}

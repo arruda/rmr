@@ -51,7 +51,7 @@ class Book(Abs_Named_Model, Abs_UserConected_Model):
     #purchase data
     purchase_store = models.ForeignKey('stores.Store',related_name='books',null=True,blank=True)
     purchased       = models.BooleanField(_("Purchased?"),default=False)
-    purchase_value = models.DecimalField(_("Purchase Value"),max_digits=10, decimal_places=2,default=Decimal("0"), null=True, blank=True)
+    purchase_value = models.DecimalField(_("Purchase Value"),max_digits=10, decimal_places=2, null=True, blank=True)
     purchase_date =  models.DateField(_("Purchase Date"),  null=True, blank=True)#, default=datetime.date.today,)
     
     
@@ -72,7 +72,7 @@ class Book(Abs_Named_Model, Abs_UserConected_Model):
         
     def save(self, *args, **kwargs):
         """
-        If the task is assigned to someone, then add this member to the project members
+        if has any purchased information, then mark as purchased
         """
         #if has a purchase value or date then mark as purchased
         if self.purchase_value or self.purchase_date or self.purchase_store:
