@@ -30,7 +30,7 @@
 			
 			<li>
 				{{ form.genres.errors }}
-				{{ form.genres.label_tag }} {{ form.genres }} <a href="#"  class="add-another" id="new_publisher">+</a>		
+				{{ form.genres.label_tag }} {{ form.genres }} <a href="#"  class="add-another" id="new_genre">+</a>		
 			</li>	
 			
 			<li>
@@ -82,10 +82,29 @@
                 autoOpen: false,
                 modal: true,
                 buttons: {
-                    Ok: function() {                        
+                    Ok: function() {   
+                    	var selected_model = $( this ).data("selected_model");                     
                         var new_form = $("#model-dl-form");
+						var url_author = '{% url ajax_new_author %}';
+						var url_publisher = '{% url ajax_new_publisher %}';
+						var url_genre = '{% url ajax_new_genre %}';
+						var url_store = '{% url ajax_new_store %}';
+						
+						var post_url;
+						if(selected_model == "author"){
+							post_url = url_author;
+						}
+						else if(selected_model == "publisher"){
+							post_url = url_publisher;
+						}
+						else if(selected_model == "genre"){
+							post_url = url_genre;
+						}
+						else if(selected_model == "store"){
+							post_url = url_store;
+						}
 
-                        $.post('{% url ajax_new_author %}',
+                        $.post(post_url,
                             new_form.serialize(),
                             function(data) {
                             	if(data.errors !== undefined){
@@ -110,13 +129,28 @@
 	                                console.log(data);
 	
 	
-	
-	                                //add the new model to the list
-	                                var model_list = $("#newbk-form #id_author");
+	 								var model_list;
+	 								
+	                                //add the new model to it's correct list
+	                                if(selected_model == "author"){
+	 									model_list = $("#newbk-form #id_author");
+	                                
+	                                }else if(selected_model == "publisher"){
+	 									model_list = $("#newbk-form #id_publisher");
+	                                
+	                                }else if(selected_model == "genre"){
+	 									model_list = $("#newbk-form #id_genres");
+	                                
+	                                }else if(selected_model == "store"){
+	 									model_list = $("#newbk-form #id_purchase_store");
+	                                
+	                                }
+	                               
 	                                
 	                                model_list.append("<option value='"+ data.id +"' selected>"+ data.name +"</option>");
 	
 	                                $( "#model-dialog-modal" ).dialog( "close" );
+	                                
                             	}
 
                             },"json");
@@ -132,7 +166,8 @@
                     var new_form = $( this ).find("#model-dl-form");
 
                     new_form.find("input").val("");
-                    new_var_form.find(".error").remove();   
+                    new_form.find(".error").remove();   
+                    console.log("close");
                 }
             });
 	
@@ -146,6 +181,43 @@
                 console.log("new_author");          
                       
                 $('.ui-dialog-title').html("New Author");  
+                dialog.data("selected_model","author");
+                dialog.dialog( "open" );    
+            });
+                
+            //change the add buttons to add new contents
+            $('#new_publisher').click(function(){
+                event.preventDefault();
+                
+                var dialog = $( "#model-dialog-modal" );
+                console.log("new_publisher");          
+                      
+                $('.ui-dialog-title').html("New Publisher");  
+                dialog.data("selected_model","publisher");
+                dialog.dialog( "open" );    
+            });
+            
+            //change the add buttons to add new contents
+            $('#new_genre').click(function(){
+                event.preventDefault();
+                
+                var dialog = $( "#model-dialog-modal" );
+                console.log("new_genre");          
+                      
+                $('.ui-dialog-title').html("New Genre");  
+                dialog.data("selected_model","genre");
+                dialog.dialog( "open" );    
+            });
+            
+            //change the add buttons to add new contents
+            $('#new_purchase_store').click(function(){
+                event.preventDefault();
+                
+                var dialog = $( "#model-dialog-modal" );
+                console.log("new_genre");          
+                      
+                $('.ui-dialog-title').html("New Store");  
+                dialog.data("selected_model","store");
                 dialog.dialog( "open" );    
             });
             
