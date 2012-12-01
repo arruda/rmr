@@ -5,8 +5,6 @@ South
 
 django-annoying
 django-model-utils==1.1.0 
-django-taggit
-django-taggit-templatetags
 
 django-debug-toolbar
 
