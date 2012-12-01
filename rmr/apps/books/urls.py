@@ -16,5 +16,6 @@ urlpatterns = patterns('books.views',
  
    url(r'^$', 'filter', name='filter_books'),     
    url(r'^new/$', 'new', name='new_book'),       
-   url(r'^new_genre/$', 'new_genre', name='new_genre'),     
+   url(r'^new_genre/$', 'new_genre', name='new_genre'),  
+   url(r'^new_genre_ajax/$', 'new_genre_ajax', name='ajax_new_genre'),        
 )

@@ -12,5 +12,6 @@ from django.conf.urls.defaults import patterns, include, url
 
 urlpatterns = patterns('publishers.views',   
      
-   url(r'^new/$', 'new', name='new_publisher'),     
+   url(r'^new/$', 'new', name='new_publisher'),   
+   url(r'^new_ajax/$', 'new_ajax', name='ajax_new_publisher'),  
 )

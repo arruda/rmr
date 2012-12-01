@@ -1,0 +1,154 @@
+- fields:
+    date_joined: 2012-10-20 17:47:27.733379
+    email: contato@arruda.blog.br
+    first_name: ''
+    groups: []
+    is_active: true
+    is_staff: true
+    is_superuser: true
+    last_login: 2012-10-20 20:37:27.185365
+    last_name: ''
+    password: sha1$b99ce$99f749f4c63ba0f0dd2403a750352b573f6ebf9c
+    user_permissions: []
+    username: arruda
+  model: auth.user
+  pk: 1
+- fields:
+    date_joined: 2012-10-20 20:33:05
+    email: annanda.sousa@gmail.com
+    first_name: Annanda
+    groups: []
+    is_active: true
+    is_staff: true
+    is_superuser: true
+    last_login: 2012-11-13 17:51:40.113545
+    last_name: Super Linda
+    password: sha1$2d6d4$6231274e5793ec904344ed1c59291d9a255250b0
+    user_permissions: []
+    username: annanda
+  model: auth.user
+  pk: 2
+
+- fields: {name: Jonh Green}
+  model: authors.author
+  pk: 1
+- fields: {name: Lauren Oliver}
+  model: authors.author
+  pk: 2
+- fields: {name: Fern Michaels}
+  model: authors.author
+  pk: 3
+- fields: {name: John Boyne}
+  model: authors.author
+  pk: 36
+- fields: {name: Stephen Hawking}
+  model: authors.author
+  pk: 37
+- fields: {name: Susan Sellers}
+  model: authors.author
+  pk: 38
+- fields: {name: Stephen King}
+  model: authors.author
+  pk: 39
+- fields: {name: Maggie Stiefvater}
+  model: authors.author
+  pk: 40
+
+- fields: {name: Saraiva}
+  model: stores.store
+  pk: 1
+- fields: {name: Submarino}
+  model: stores.store
+  pk: 2
+- fields: {name: Travessa}
+  model: stores.store
+  pk: 3
+- fields: {name: Ricardo Eletro}
+  model: stores.store
+  pk: 4
+- fields: {name: Americanas}
+  model: stores.store
+  pk: 5
+
+- fields: {name: Martins Fontes}
+  model: publishers.publisher
+  pk: 1
+- fields: {name: "Intr\xEDnseca"}
+  model: publishers.publisher
+  pk: 2
+- fields: {name: Novo Conceito}
+  model: publishers.publisher
+  pk: 3
+- fields: {name: Companhia das Letras}
+  model: publishers.publisher
+  pk: 36
+- fields: {name: Nova Fronteira}
+  model: publishers.publisher
+  pk: 37
+- fields: {name: "Novo S\xE9culo"}
+  model: publishers.publisher
+  pk: 38
+- fields: {name: Suma de Letras}
+  model: publishers.publisher
+  pk: 39
+- fields: {name: Verus}
+  model: publishers.publisher
+  pk: 40
+
+
+- fields: {author: 1, desired: 2, name: "Quem \xE9 voce, Alasca?", publisher: 1, purchase_date: null,
+    purchase_store: null, purchase_value: '0.00', purchased: false, release_date: 2010-10-20,
+    synopsis: ''}
+  model: books.book
+  pk: 1
+- fields: {author: 2, desired: 3, name: "Antes que eu v\xE1", publisher: 2, purchase_date: null,
+    purchase_store: null, purchase_value: '0.00', purchased: false, release_date: 2011-07-20,
+    synopsis: ''}
+  model: books.book
+  pk: 2
+- fields: {author: 3, desired: 3, name: Segredos Revelados, publisher: 3, purchase_date: null,
+    purchase_store: null, purchase_value: '0.00', purchased: false, release_date: 2012-11-01,
+    synopsis: ''}
+  model: books.book
+  pk: 3
+- fields: {author: 36, desired: 4, name: "Pal\xE1cio de Inverno", publisher: 36, purchase_date: null,
+    purchase_store: null, purchase_value: '0.00', purchased: false, release_date: 2010-10-23,
+    synopsis: "Na primeira vez em que alterou o curso da hist\xF3ria, em 1915, o ent\xE3\
+      o jovem campon\xEAs russo Ge\xF3rgui Jachmenev conseguiu impedir um atentado\
+      \ \xE0 vida do gr\xE3o-duque Nicolau Nicolaievitch, irm\xE3o do czar. Esse involunt\xE1\
+      rio ato de bravura acaba por assegurar a Ge\xF3rgui um lugar de honra na corte\
+      \ de Nicolau II, que o nomeia guarda-costas pessoal do seu filho, o tamb\xE9\
+      m adolescente Alexei Romanov. Em 1981, agora cidad\xE3o brit\xE2nico e funcion\xE1\
+      rio aposentado da biblioteca do Museu Brit\xE2nico, o octogen\xE1rio Jachmenev,\
+      \ enquanto vela pela sa\xFAde da esposa Zoia, que vive os \xFAltimos est\xE1\
+      gios de um c\xE2ncer devastador, deixa a mem\xF3ria flutuar, recordando aleatoriamente\
+      \ os fatos de sua vida, grande parte deles ligados diretamente a eventos hist\xF3\
+      ricos que transformaram o s\xE9c XX. Rasputin, Winston Churchill, um amigo de\
+      \ Charles Chaplin, o \xFAltimo czar russo e outros personagens hist\xF3ricos\
+      \ de vulto misturam-se \xE0s pessoas comuns do imagin\xE1rio de Jachmenev, \xE0\
+      \ medida em que sua mem\xF3ria vai aproximando os dois momentos mais importantes\
+      \ de sua trajet\xF3ria, aquele que conquistou o amor de sua vida e aquele em\
+      \ que est\xE1 prestes a perde-lo de forma definitiva."}
+  model: books.book
+  pk: 36
+- fields: {author: 37, desired: 5, name: "Uma nova hist\xF3ria do tempo", publisher: 37,
+    purchase_date: null, purchase_store: null, purchase_value: '0.00', purchased: false,
+    release_date: 2012-01-10, synopsis: ''}
+  model: books.book
+  pk: 37
+- fields: {author: 38, desired: 5, name: Vanessa e Virginia, publisher: 38, purchase_date: null,
+    purchase_store: null, purchase_value: '0.00', purchased: false, release_date: 2012-10-23,
+    synopsis: ''}
+  model: books.book
+  pk: 38
+- fields: {author: 39, desired: 5, name: Sob a Redoma, publisher: 39, purchase_date: null,
+    purchase_store: null, purchase_value: '0.00', purchased: false, release_date: 2012-11-05,
+    synopsis: ''}
+  model: books.book
+  pk: 39
+- fields: {author: 40, desired: 5, name: "A Corrida de Escorpi\xE3o", publisher: 40,
+    purchase_date: null, purchase_store: null, purchase_value: '0.00', purchased: false,
+    release_date: 2012-11-19, synopsis: ''}
+  model: books.book
+  pk: 40
+

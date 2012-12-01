@@ -12,6 +12,9 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from annoying.decorators import render_to
 
+
+from utils.decorators import ajax_login_required, JsonResponse
+
 from publishers.forms import NewPublisherForm
     
 @login_required
@@ -31,3 +34,21 @@ def new(request):
         form = NewPublisherForm()
     
     return locals()
+
+
+@ajax_login_required
+def new_ajax(request):
+    "create a new publisher for the logged user, using ajax"
+    
+    if request.method == 'POST':
+        form = NewPublisherForm(request.POST)
+        if form.is_valid():             
+            object = form.save(commit=False)
+            object.user = request.user
+            object.save()
+            form.save_m2m()
+            return JsonResponse({'model':"publisher",'id':object.id, 'name':object.name})
+        else:
+            return JsonResponse({'errors': form.errors})
+    
+    return JsonResponse({})

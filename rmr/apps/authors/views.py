@@ -45,7 +45,7 @@ def new_ajax(request):
             author.user = request.user
             author.save()
             form.save_m2m()
-            return JsonResponse({'id':author.id, 'name':author.name})
+            return JsonResponse({'model':"author",'id':author.id, 'name':author.name})
         else:
             return JsonResponse({'errors': form.errors})
     
