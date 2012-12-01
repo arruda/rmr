@@ -57,6 +57,25 @@ def new(request):
 
 
 @login_required
+@render_to("books/edit.html")
+def edit(request,id_book):
+    "edit a given book for the logged user"
+    
+    book = get_object_or_404(Book,pk=id_book)
+    if request.method == 'POST':
+        form = NewBookForm(request.user,request.POST,instance=book)
+        if form.is_valid():             
+            book = form.save(commit=False)
+            book.user = request.user
+            book.save()
+            form.save_m2m()
+            return redirect('filter_books')
+    else:
+        form = NewBookForm(request.user,instance=book)
+    
+    return locals()
+
+@login_required
 @render_to("books/mark_bought.html")
 def mark_as_bought(request,id_book):
     "mark a given book as bought"

@@ -40,6 +40,7 @@
 						<form action="{% url mark_as_bought book.id %}" method="get"><input id="purchased_book" type="submit" value="Mark as Purchased!"></form>
 						
 					{% endif %}
+					<form action="{% url edit_book book.id %}" method="get"><input id="edit_book" type="submit" value="Edit Informations"></form>
 				</ul>
 			</div>
 		{% endfor %}

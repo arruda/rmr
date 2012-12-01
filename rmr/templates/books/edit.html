@@ -1,0 +1,228 @@
+{% extends "util/base.html"%}
+
+{% block 'body-content' %}
+	<h1>Editing: {{book.name}}</h1>
+	
+
+	<div>
+		<form action="{% url edit_book book.id %}" method="post" id="edit-bk-form">
+			{% csrf_token %}
+			<li>
+				{{ form.name.errors }}
+				{{ form.name.label_tag }} {{ form.name }} 				
+			</li>
+			<li>
+				{{ form.desired.errors }}
+				{{ form.desired.label_tag }} {{ form.desired }} 		
+			</li>	
+			<li>
+				{{ form.author.errors }}
+				{{ form.author.label_tag }} {{ form.author }} <a href="#"  class="add-another" id="new_author">+</a>				
+			</li>
+			<li>
+				{{ form.publisher.errors }}
+				{{ form.publisher.label_tag }} {{ form.publisher }} <a href="#"  class="add-another" id="new_publisher">+</a>		
+			</li>			
+			<li>
+				{{ form.synopsis.errors }}
+				{{ form.synopsis.label_tag }} {{ form.synopsis }}
+			</li>
+			
+			<li>
+				{{ form.genres.errors }}
+				{{ form.genres.label_tag }} {{ form.genres }} <a href="#"  class="add-another" id="new_genre">+</a>		
+			</li>	
+			
+			<li>
+				{{ form.release_date.errors }}
+				{{ form.release_date.label_tag }} {{ form.release_date }} 		
+			</li>	
+			
+			<li>
+				{{ form.purchase_store.errors }}
+				{{ form.purchase_store.label_tag }} {{ form.purchase_store }} <a href="#"  class="add-another" id="new_purchase_store">+</a>
+			</li>	
+			
+			<li>
+				{{ form.purchased.errors }}
+				{{ form.purchased.label_tag }} {{ form.purchased }}
+			</li>	
+			
+			<li>
+				{{ form.purchase_value.errors }}
+				{{ form.purchase_value.label_tag }} {{ form.purchase_value }}
+			</li>	
+			
+			<li>
+				{{ form.purchase_date.errors }}
+				{{ form.purchase_date.label_tag }} {{ form.purchase_date }}
+			</li>	
+			
+			
+			<input type="submit" value="Save" />
+		</form>
+	</div>
+	
+    <div id="model-dialog-modal" title="New Model">
+        <form id="model-dl-form">
+            <ul style="list-style:none;">
+                <li>
+                    <label for="name">Name</label>
+                    <input id="id_name" type="text" name="name" maxlength="250" />
+                </li>
+            </ul>
+        </form>
+    </div>
+{% endblock %}
+
+{% block 'jquery-docready' %}
+{{ block.super }}
+
+            $( "#model-dialog-modal" ).dialog({
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    Ok: function() {   
+                    	var selected_model = $( this ).data("selected_model");                     
+                        var new_form = $("#model-dl-form");
+						var url_author = '{% url ajax_new_author %}';
+						var url_publisher = '{% url ajax_new_publisher %}';
+						var url_genre = '{% url ajax_new_genre %}';
+						var url_store = '{% url ajax_new_store %}';
+						
+						var post_url;
+						if(selected_model == "author"){
+							post_url = url_author;
+						}
+						else if(selected_model == "publisher"){
+							post_url = url_publisher;
+						}
+						else if(selected_model == "genre"){
+							post_url = url_genre;
+						}
+						else if(selected_model == "store"){
+							post_url = url_store;
+						}
+
+                        $.post(post_url,
+                            new_form.serialize(),
+                            function(data) {
+                            	if(data.errors !== undefined){
+					                //for each field in the errrors
+				                    $.each(data.errors, function(key, value) { 
+				                       	var field = new_form;
+			
+				                       	//if it's not a general error, than add it to the expecific field
+				                       	//else just add it to the form
+				                    	if(key != "__all__"){
+				                       		var field = new_form.find("[name='" + key + "']").parent();
+				                    	}
+			
+				                        //add each error to the given field
+				                        $.each(value, function(index, val){
+				                           field.prepend("<span class='error'>"+val+"</span>");
+			
+				                        });
+				                    });
+			                    }
+                            	else{
+	                                console.log(data);
+	
+	
+	 								var model_list;
+	 								
+	                                //add the new model to it's correct list
+	                                if(selected_model == "author"){
+	 									model_list = $("#edit-bk-form #id_author");
+	                                
+	                                }else if(selected_model == "publisher"){
+	 									model_list = $("#edit-bk-form #id_publisher");
+	                                
+	                                }else if(selected_model == "genre"){
+	 									model_list = $("#edit-bk-form #id_genres");
+	                                
+	                                }else if(selected_model == "store"){
+	 									model_list = $("#edit-bk-form #id_purchase_store");
+	                                
+	                                }
+	                               
+	                                
+	                                model_list.append("<option value='"+ data.id +"' selected>"+ data.name +"</option>");
+	
+	                                $( "#model-dialog-modal" ).dialog( "close" );
+	                                
+                            	}
+
+                            },"json");
+                
+
+                    },
+                    Cancel: function() {
+                        $( this ).dialog( "close" );
+                    }
+                },
+                close: function() {                   
+                    $( this ).dialog( "close" );
+                    var new_form = $( this ).find("#model-dl-form");
+
+                    new_form.find("input").val("");
+                    new_form.find(".error").remove();   
+                    console.log("close");
+                }
+            });
+	
+		
+                
+            //change the add buttons to add new contents
+            $('#new_author').click(function(){
+                event.preventDefault();
+                
+                var dialog = $( "#model-dialog-modal" );
+                console.log("new_author");          
+                      
+                $('.ui-dialog-title').html("New Author");  
+                dialog.data("selected_model","author");
+                dialog.dialog( "open" );    
+            });
+                
+            //change the add buttons to add new contents
+            $('#new_publisher').click(function(){
+                event.preventDefault();
+                
+                var dialog = $( "#model-dialog-modal" );
+                console.log("new_publisher");          
+                      
+                $('.ui-dialog-title').html("New Publisher");  
+                dialog.data("selected_model","publisher");
+                dialog.dialog( "open" );    
+            });
+            
+            //change the add buttons to add new contents
+            $('#new_genre').click(function(){
+                event.preventDefault();
+                
+                var dialog = $( "#model-dialog-modal" );
+                console.log("new_genre");          
+                      
+                $('.ui-dialog-title').html("New Genre");  
+                dialog.data("selected_model","genre");
+                dialog.dialog( "open" );    
+            });
+            
+            //change the add buttons to add new contents
+            $('#new_purchase_store').click(function(){
+                event.preventDefault();
+                
+                var dialog = $( "#model-dialog-modal" );
+                console.log("new_purchase_store");          
+                      
+                $('.ui-dialog-title').html("New Store");  
+                dialog.data("selected_model","store");
+                dialog.dialog( "open" );    
+            });
+            
+		    $("#model-dl-form").live("click", function(event){
+		        event.preventDefault();
+		    });
+
+{% endblock %}
