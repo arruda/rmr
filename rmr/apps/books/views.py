@@ -15,7 +15,7 @@ from annoying.decorators import render_to
 
 from utils.decorators import ajax_login_required, JsonResponse
 
-from books.forms import BookFilterForm, NewBookForm, NewGenreForm
+from books.forms import BookFilterForm, NewBookForm, NewGenreForm, MarkAsBoughtBookForm
 
 from books.models import Book
 
@@ -54,6 +54,27 @@ def new(request):
         form = NewBookForm(request.user)
     
     return locals()
+
+
+@login_required
+@render_to("books/mark_bought.html")
+def mark_as_bought(request,id_book):
+    "mark a given book as bought"
+    book = get_object_or_404(Book,pk=id_book)
+    
+    if request.method == 'POST':
+        form = MarkAsBoughtBookForm(request.user,request.POST,instance=book)
+        if form.is_valid():             
+            book = form.save(commit=False)
+            book.purchased = True
+            book.save()            
+            form.save_m2m()
+            return redirect('filter_books')
+    else:
+        form = MarkAsBoughtBookForm(request.user,instance=book)
+    
+    return locals()
+    
 
 @login_required
 @render_to("books/new_genre.html")

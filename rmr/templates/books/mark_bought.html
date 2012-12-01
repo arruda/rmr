@@ -1,68 +1,27 @@
 {% extends "util/base.html"%}
 
 {% block 'body-content' %}
-	<h1>New Book</h1>
+	<h1>Purchased: {{book.name}} - {{book.author}}</h1>
 	
 
 	<div>
-		<form action="{% url new_book %}" method="post" id="newbk-form">
+		<form action="{% url mark_as_bought book.id %}" method="post" id="purchase-bk-form">
 			{% csrf_token %}
 			<li>
-				{{ form.name.errors }}
-				{{ form.name.label_tag }} {{ form.name }} 				
-			</li>
-			<li>
-				{{ form.desired.errors }}
-				{{ form.desired.label_tag }} {{ form.desired }} 		
-			</li>	
-			<li>
-				{{ form.author.errors }}
-				{{ form.author.label_tag }} {{ form.author }} <a href="#"  class="add-another" id="new_author">+</a>				
-			</li>
-			<li>
-				{{ form.publisher.errors }}
-				{{ form.publisher.label_tag }} {{ form.publisher }} <a href="#"  class="add-another" id="new_publisher">+</a>		
-			</li>			
-			<li>
-				{{ form.synopsis.errors }}
-				{{ form.synopsis.label_tag }} {{ form.synopsis }}
-			</li>
-			
-			<li>
-				{{ form.genres.errors }}
-				{{ form.genres.label_tag }} {{ form.genres }} <a href="#"  class="add-another" id="new_genre">+</a>		
-			</li>	
-			
-			<li>
-				{{ form.release_date.errors }}
-				{{ form.release_date.label_tag }} {{ form.release_date }} 		
-			</li>	
-			
-			<li>
 				{{ form.purchase_store.errors }}
-				{{ form.purchase_store.label_tag }} {{ form.purchase_store }} <a href="#"  class="add-another" id="new_purchase_store">+</a>
-			</li>	
-			
-			<li>
-				{{ form.purchased.errors }}
-				{{ form.purchased.label_tag }} {{ form.purchased }}
-			</li>	
-			
+				{{ form.purchase_store.label_tag }} {{ form.purchase_store }} <a href="#"  class="add-another" id="new_purchase_store">+</a>		
+			</li>
 			<li>
 				{{ form.purchase_value.errors }}
-				{{ form.purchase_value.label_tag }} {{ form.purchase_value }}
+				{{ form.purchase_value.label_tag }} {{ form.purchase_value }} 		
 			</li>	
-			
 			<li>
 				{{ form.purchase_date.errors }}
-				{{ form.purchase_date.label_tag }} {{ form.purchase_date }}
-			</li>	
-			
-			
-			<input type="submit" value="Create" />
+				{{ form.purchase_date.label_tag }} {{ form.purchase_date }}				
+			</li>
+			<input type="submit" value="Purchased!" />
 		</form>
 	</div>
-	
     <div id="model-dialog-modal" title="New Model">
         <form id="model-dl-form">
             <ul style="list-style:none;">
@@ -73,6 +32,7 @@
             </ul>
         </form>
     </div>
+	
 {% endblock %}
 
 {% block 'jquery-docready' %}
@@ -132,17 +92,8 @@
 	 								var model_list;
 	 								
 	                                //add the new model to it's correct list
-	                                if(selected_model == "author"){
-	 									model_list = $("#newbk-form #id_author");
-	                                
-	                                }else if(selected_model == "publisher"){
-	 									model_list = $("#newbk-form #id_publisher");
-	                                
-	                                }else if(selected_model == "genre"){
-	 									model_list = $("#newbk-form #id_genres");
-	                                
-	                                }else if(selected_model == "store"){
-	 									model_list = $("#newbk-form #id_purchase_store");
+	                                if(selected_model == "store"){
+	 									model_list = $("#purchase-bk-form #id_purchase_store");
 	                                
 	                                }
 	                               
@@ -172,42 +123,6 @@
             });
 	
 		
-                
-            //change the add buttons to add new contents
-            $('#new_author').click(function(){
-                event.preventDefault();
-                
-                var dialog = $( "#model-dialog-modal" );
-                console.log("new_author");          
-                      
-                $('.ui-dialog-title').html("New Author");  
-                dialog.data("selected_model","author");
-                dialog.dialog( "open" );    
-            });
-                
-            //change the add buttons to add new contents
-            $('#new_publisher').click(function(){
-                event.preventDefault();
-                
-                var dialog = $( "#model-dialog-modal" );
-                console.log("new_publisher");          
-                      
-                $('.ui-dialog-title').html("New Publisher");  
-                dialog.data("selected_model","publisher");
-                dialog.dialog( "open" );    
-            });
-            
-            //change the add buttons to add new contents
-            $('#new_genre').click(function(){
-                event.preventDefault();
-                
-                var dialog = $( "#model-dialog-modal" );
-                console.log("new_genre");          
-                      
-                $('.ui-dialog-title').html("New Genre");  
-                dialog.data("selected_model","genre");
-                dialog.dialog( "open" );    
-            });
             
             //change the add buttons to add new contents
             $('#new_purchase_store').click(function(){
