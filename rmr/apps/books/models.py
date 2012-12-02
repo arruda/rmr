@@ -67,7 +67,7 @@ class Book(Abs_Named_Model, Abs_UserConected_Model):
     
     @property
     def desired_text(self):
-        "return the correct self.disered text"
+        "return the correct self.desired text"
         return self.DESIRE_CHOICES[self.desired-1][1].__unicode__()
         
     def save(self, *args, **kwargs):
