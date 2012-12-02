@@ -9,4 +9,13 @@
 			</ul>
 		{% endif %}
 	</nav>
+	<div class="sub_content">		
+		{% if request.user.is_authenticated %}
+			<h2>Monthly Quota:</h2>
+			<strong>Total:</strong>{{request.user.get_profile.quota|stringformat:".2f"}}</br>
+			<strong>Used:</strong>{{request.user.get_profile.used_monthly_quota|stringformat:".2f"}}
+			
+		{% endif %}
+	</div>
+	
 </div>
