@@ -15,9 +15,11 @@ from annoying.decorators import render_to
 
 from django.contrib.auth.models import User
 
+from utils.decorators import ajax_login_required, JsonResponse
+
 from accounts.models import UserProfile
 
-from accounts.forms import RegistrationForm
+from accounts.forms import RegistrationForm, ChangeMonthlyQuota
 
 @render_to('users/register.html')
 def register(request): 
@@ -54,3 +56,19 @@ def index(request):
         return redirect('filter_books')
     
     return locals()
+
+
+
+@ajax_login_required
+def ajax_change_quota(request):
+    "change the user(profile) quota, using ajax"
+    
+    if request.method == 'POST':
+        form = ChangeMonthlyQuota(request.POST, instance=request.user.get_profile())
+        if form.is_valid():             
+            user_new_quota = form.save()
+            return JsonResponse({'quota': user_new_quota.quota})
+        else:
+            return JsonResponse({'errors': form.errors})
+    
+    return JsonResponse({})

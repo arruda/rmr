@@ -1,5 +1,5 @@
-<div id="side" >			
-	<nav class="opt_menu adjust_height">
+<div id="side" class="adjust_height">			
+	<nav class="opt_menu">
 		{% if request.user.is_authenticated %}
 			<ul>
 				<li><a href="{% url filter_books %}" >Book List</a></li>
@@ -11,7 +11,7 @@
 	</nav>
 	<div class="sub_content">		
 		{% if request.user.is_authenticated %}
-			<h2>Monthly Quota:</h2>
+			<h2><a href="#" id="change_quota">Monthly Quota:</a></h2>
 			<strong>Total:</strong>{{request.user.get_profile.quota|stringformat:".2f"}}</br>
 			<strong>Used:</strong>{{request.user.get_profile.used_monthly_quota|stringformat:".2f"}}
 			

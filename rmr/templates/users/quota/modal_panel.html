@@ -1,0 +1,13 @@
+
+{% if request.user.is_authenticated %}	
+    <div id="quota-dialog-modal" title="Change Monthly Quota">
+        <form id="quota-dl-form">
+            <ul style="list-style:none;">
+                <li>
+                    <label for="quota">New Quota</label>
+                    <input id="id_quota" type="text" name="quota" maxlength="250" value="{{request.user.get_profile.quota|stringformat:".2f"}}"/>
+                </li>
+            </ul>
+        </form>
+    </div>
+{% endif %}

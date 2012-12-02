@@ -14,6 +14,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.models import User
 
+from accounts.models import UserProfile
 
 class RegistrationForm(forms.Form):
     "Form that register a enterprise and a owner user for it"
@@ -37,3 +38,21 @@ class RegistrationForm(forms.Form):
         if password1 != password2:
             raise forms.ValidationError(_("The two password fields didn't match."))
         return password2
+    
+    
+    
+class ChangeMonthlyQuota(forms.ModelForm):
+    "change an UserProfile quota"
+    
+    
+    class Meta:
+        model = UserProfile
+        fields = ('quota',)
+        
+        
+    def clean_quota(self):
+        quota = self.cleaned_data["quota"]
+        if quota < 0:
+            raise forms.ValidationError(_("Only positive values."))
+        return quota
+        
