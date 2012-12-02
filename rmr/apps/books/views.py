@@ -8,6 +8,8 @@
     :copyright: (c) 2012 by arruda.
 """
 
+import datetime
+
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from annoying.decorators import render_to
@@ -81,6 +83,7 @@ def mark_as_bought(request,id_book):
     "mark a given book as bought"
     book = get_object_or_404(Book,pk=id_book)
     
+    
     if request.method == 'POST':
         form = MarkAsBoughtBookForm(request.user,request.POST,instance=book)
         if form.is_valid():             
@@ -90,6 +93,8 @@ def mark_as_bought(request,id_book):
             form.save_m2m()
             return redirect('filter_books')
     else:
+        if not book.purchase_date:
+            book.purchase_date = datetime.date.today()
         form = MarkAsBoughtBookForm(request.user,instance=book)
     
     return locals()
