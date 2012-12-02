@@ -15,6 +15,8 @@ from annoying.decorators import render_to
 
 from django.contrib.auth.models import User
 
+from accounts.models import UserProfile
+
 from accounts.forms import RegistrationForm
 
 @render_to('users/register.html')
@@ -33,6 +35,8 @@ def register(request):
             user.save()
             user.username = user.pk 
             user.save()
+            user_profile = UserProfile(user=user)
+            user_profile.save()
             user.backend='user_backends.email_username.EmailOrUsernameModelBackend'
                         
             #logs the new user

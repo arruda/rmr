@@ -24,6 +24,8 @@ LOGIN_REDIRECT_URL = '/'
 
 ROOT_URLCONF = 'urls'
 
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
 MEDIA_ROOT = LOCAL('media') 
 MEDIA_URL = '/media/'
 
