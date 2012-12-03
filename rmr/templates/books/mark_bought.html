@@ -126,8 +126,8 @@
 		
             
             //change the add buttons to add new contents
-            $('#new_purchase_store').click(function(){
-                event.preventDefault();
+            $('#new_purchase_store').click(function(evt){
+                evt.preventDefault();
                 
                 var dialog = $( "#model-dialog-modal" );
                 console.log("new_purchase_store");          
@@ -137,8 +137,8 @@
                 dialog.dialog( "open" );    
             });
             
-		    $("#model-dl-form").live("click", function(event){
-		        event.preventDefault();
+		    $("#model-dl-form").live("click", function(evt){
+		        evt.preventDefault();
 		    });
 
 

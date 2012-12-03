@@ -62,8 +62,8 @@
 		
                 
             //change the add buttons to do what it must
-            $('#change_quota').click(function(){
-                event.preventDefault();
+            $('#change_quota').click(function(evt){
+            	evt.preventDefault();
                 
                 var dialog = $( "#quota-dialog-modal" );
                 console.log("change_quota");          

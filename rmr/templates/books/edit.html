@@ -174,8 +174,8 @@
 		
                 
             //change the add buttons to add new contents
-            $('#new_author').click(function(){
-                event.preventDefault();
+            $('#new_author').click(function(evt){
+                evt.preventDefault();
                 
                 var dialog = $( "#model-dialog-modal" );
                 console.log("new_author");          
@@ -186,8 +186,8 @@
             });
                 
             //change the add buttons to add new contents
-            $('#new_publisher').click(function(){
-                event.preventDefault();
+            $('#new_publisher').click(function(evt){
+                evt.preventDefault();
                 
                 var dialog = $( "#model-dialog-modal" );
                 console.log("new_publisher");          
@@ -198,8 +198,8 @@
             });
             
             //change the add buttons to add new contents
-            $('#new_genre').click(function(){
-                event.preventDefault();
+            $('#new_genre').click(function(evt){
+                evt.preventDefault();
                 
                 var dialog = $( "#model-dialog-modal" );
                 console.log("new_genre");          
@@ -210,8 +210,8 @@
             });
             
             //change the add buttons to add new contents
-            $('#new_purchase_store').click(function(){
-                event.preventDefault();
+            $('#new_purchase_store').click(function(evt){
+                evt.preventDefault();
                 
                 var dialog = $( "#model-dialog-modal" );
                 console.log("new_purchase_store");          
@@ -221,8 +221,8 @@
                 dialog.dialog( "open" );    
             });
             
-		    $("#model-dl-form").live("click", function(event){
-		        event.preventDefault();
+		    $("#model-dl-form").live("click", function(evt){
+		        evt.preventDefault();
 		    });
 		    
 			//datepicker			
