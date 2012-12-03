@@ -13,8 +13,22 @@
 {% block 'jquery-docready' %}
 {{ block.super }}
 
-	$.get('{% url test_flot %}', function(data) {
+	$.getJSON('{% url test_flot %}', function(data) {
 		console.log(data);
+		var options = {
+					    "xaxis": {
+					        "axisLabel": "foo",
+					        "axisLabelFontSizePixels": 20,
+					        "axisLabelUseCanvas": true, 
+					        "axisLabelFontFamily": "Arial"
+					    }, 
+					    "yaxis": {
+					        "axisLabel": "bars", 
+					        "axisLabelFontSizePixels": 20, 
+					        "axisLabelUseCanvas": true, 
+					        "axisLabelFontFamily": "Arial"
+					    }
+					}
 	  $.plot($("#placeholder"), data.datas, data.options);
 	});
 {% endblock %}
