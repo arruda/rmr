@@ -64,7 +64,7 @@ def ajax_change_quota(request):
     "change the user(profile) quota, using ajax"
     
     if request.method == 'POST':
-        form = ChangeMonthlyQuota(request.POST, instance=request.user.get_profile())
+        form = ChangeMonthlyQuota(request.POST, instance=request.user.get_profile().quota)
         if form.is_valid():             
             user_new_quota = form.save()
             return JsonResponse({'quota': user_new_quota.quota})

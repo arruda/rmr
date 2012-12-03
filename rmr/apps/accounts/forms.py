@@ -14,7 +14,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.models import User
 
-from accounts.models import UserProfile
+from accounts.models import UserProfile, Quota
 
 class RegistrationForm(forms.Form):
     "Form that register a enterprise and a owner user for it"
@@ -46,7 +46,7 @@ class ChangeMonthlyQuota(forms.ModelForm):
     
     
     class Meta:
-        model = UserProfile
+        model = Quota
         fields = ('quota',)
         
         
