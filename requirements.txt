@@ -17,7 +17,7 @@ PyYaml
 
 
 #python-flot-utils
--e git://github.com/arruda/python-flot-utils.git@6ef72d573de93533860b461cc87e2151bc4c8804#egg=python_flot_utils-dev
+-e git://github.com/arruda/python-flot-utils.git@90d2a0cd6bb1879e587673f97d9312697eb9883f#egg=python_flot_utils-dev
 
 #heroku
 dj-database-url==0.2.1
