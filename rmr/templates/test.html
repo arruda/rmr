@@ -1,0 +1,20 @@
+{% extends "util/base.html"%}
+
+{% block 'body-content' %}
+	<h1>test</h1>
+	
+
+	<div class="sub_content">
+		<div id="placeholder" style="width:600px;height:300px;">
+		</div>
+	</div>
+{% endblock %}
+
+{% block 'jquery-docready' %}
+{{ block.super }}
+
+	$.get('{% url test_flot %}', function(data) {
+		console.log(data);
+	  $.plot($("#placeholder"), data.datas, data.options);
+	});
+{% endblock %}
