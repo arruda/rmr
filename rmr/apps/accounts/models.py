@@ -40,7 +40,7 @@ class UserProfile(models.Model):
                                   ).aggregate(
                                       Sum("purchase_value")
                                   )['purchase_value__sum']
-        return total_purchased
+        return total_purchased if total_purchased != None else 0
     
     @property
     def quota(self):

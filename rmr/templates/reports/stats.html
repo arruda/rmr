@@ -1,0 +1,22 @@
+{% extends "util/base.html"%}
+
+{% block 'body-content' %}
+	<h1>Stats</h1>
+	
+
+	<div class="sub_content">
+		<h2>Monthly Expenses vs Quota per Month</h2>
+		<div id="plot_monthly_expenses_vs_quota" style="width:600px;height:300px;">
+		</div>
+	</div>
+	
+{% endblock %}
+
+{% block 'jquery-docready' %}
+{{ block.super }}
+
+	$.getJSON('{% url report_monthly_expenses_vs_quota %}', function(data) {
+		console.log(data);
+	  $.plot($("#plot_monthly_expenses_vs_quota"), data.datas, data.options);
+	});
+{% endblock %}

@@ -13,7 +13,7 @@
 {% block 'jquery-docready' %}
 {{ block.super }}
 
-	$.getJSON('{% url test_flot %}', function(data) {
+	$.getJSON('{% url report_monthly_expenses_vs_quota %}', function(data) {
 		console.log(data);
 		var options = {
 					    "xaxis": {
