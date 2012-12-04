@@ -24,6 +24,7 @@ class Genre(Abs_Named_Model,Abs_UserConected_Model):
     
     class Meta:
         app_label = 'books'
+        ordering = ['name',]
         
         
 class Book(Abs_Named_Model, Abs_UserConected_Model):
