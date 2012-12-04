@@ -32,6 +32,14 @@ class NewBookForm(forms.ModelForm):
         self.fields['publisher'].queryset = user.publisher_set.all() 
         self.fields['purchase_store'].queryset = user.store_set.all()    
         self.fields['genres'].queryset = user.genre_set.all()    
+        
+    def clean_name(self):
+        
+        data = self.cleaned_data['name']
+        if Book.objects.filter(name__iexact=data.lower(),user=self.user).count() > 0:
+            raise forms.ValidationError(_("There is a book with this name already."))
+
+        return data
     
 
 class NewGenreForm(forms.ModelForm):
