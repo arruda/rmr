@@ -17,3 +17,4 @@ class Store(Abs_Named_Model, Abs_UserConected_Model):
     class Meta:
         app_label = 'stores'
         ordering = ['name',]
+        unique_together = (('user', 'name'),)

@@ -40,12 +40,11 @@ def new_ajax(request):
     "create a new store for the logged user, using ajax"
     
     if request.method == 'POST':
-        form = NewStoreForm(request.POST)
+        post_dict = request.POST.copy()        
+        post_dict['user'] = request.user.id
+        form = NewStoreForm(post_dict)
         if form.is_valid():             
-            object = form.save(commit=False)
-            object.user = request.user
-            object.save()
-            form.save_m2m()
+            object = form.save()
             return JsonResponse({'model':"store",'id':object.id, 'name':object.name})
         else:
             return JsonResponse({'errors': form.errors})

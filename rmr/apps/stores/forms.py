@@ -20,5 +20,5 @@ class NewStoreForm(forms.ModelForm):
     
     class Meta:
         model = Store
-        exclude = ('user',)
+#        exclude = ('user',)
         
