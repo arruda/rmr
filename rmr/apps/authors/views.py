@@ -14,6 +14,7 @@ from annoying.decorators import render_to
 
 from utils.decorators import ajax_login_required, JsonResponse
 from authors.forms import NewAuthorForm
+from authors.models import Author
     
 @login_required
 @render_to("authors/new.html")
@@ -39,14 +40,13 @@ def new_ajax(request):
     "create a new author for the logged user, using ajax"
     
     if request.method == 'POST':
-        form = NewAuthorForm(request.POST)
-        if form.is_valid():             
-            author = form.save(commit=False)
-            author.user = request.user
-            author.save()
-            form.save_m2m()
+        post_dict = request.POST.copy()        
+        post_dict['user'] = request.user.id
+        form = NewAuthorForm(post_dict)
+        if form.is_valid():            
+            author = form.save()
             return JsonResponse({'model':"author",'id':author.id, 'name':author.name})
-        else:
+        else:         
             return JsonResponse({'errors': form.errors})
     
     return JsonResponse({})
