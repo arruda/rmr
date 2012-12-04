@@ -41,14 +41,14 @@ def new_ajax(request):
     "create a new publisher for the logged user, using ajax"
     
     if request.method == 'POST':
-        form = NewPublisherForm(request.POST)
+        post_dict = request.POST.copy()        
+        post_dict['user'] = request.user.id
+        form = NewPublisherForm(post_dict)
         if form.is_valid():             
-            object = form.save(commit=False)
-            object.user = request.user
-            object.save()
-            form.save_m2m()
+            object = form.save()
             return JsonResponse({'model':"publisher",'id':object.id, 'name':object.name})
         else:
+            print "form.errors", form.errors
             return JsonResponse({'errors': form.errors})
     
     return JsonResponse({})

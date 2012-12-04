@@ -20,5 +20,5 @@ class NewPublisherForm(forms.ModelForm):
     
     class Meta:
         model = Publisher
-        exclude = ('user',)
+#        exclude = ('user',)
         

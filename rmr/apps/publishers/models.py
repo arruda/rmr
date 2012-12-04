@@ -16,3 +16,4 @@ class Publisher(Abs_Named_Model,Abs_UserConected_Model):
     class Meta:
         app_label = 'publishers'
         ordering = ['name',]
+        unique_together = (('user', 'name'),)
