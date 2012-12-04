@@ -39,7 +39,7 @@ class NewGenreForm(forms.ModelForm):
     
     class Meta:
         model = Genre
-        exclude = ('user',)
+#        exclude = ('user',)
         
     
 
