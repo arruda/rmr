@@ -75,3 +75,12 @@ class Quota(models.Model):
         "return the user email"
         return "%s - %s - %s/%s" % (self.quota, self.user.user.email, self.date.month, self.date.year)
     
+    def save(self, *args, **kwargs):
+        """
+        always stay with the day 1
+        """
+        #reset to day 1
+        if self.date.day != 1:
+            self.date = self.date - datetime.timedelta(days=self.date.day -1)
+        
+        super(Quota, self).save(*args, **kwargs)

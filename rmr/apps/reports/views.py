@@ -8,6 +8,9 @@
     :copyright: (c) 2012 by arruda.
 """
 
+import datetime
+import time
+
 from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -33,8 +36,6 @@ def add_axis_label(flot,axis="x",label="foo"):
 @ajax_login_required
 def test_flot(request):
     "testing flot ajax"
-    import datetime
-    import time
     
     m1 = datetime.date.today()
     m0 = m1 - datetime.timedelta(days=30)
@@ -61,8 +62,6 @@ def monthly_expenses_vs_quota(request):
     """
      return flot data/options for the expenses of all months with their quota
     """
-    import datetime
-    import time
     graph = Flot()
     user_profile = request.user.get_profile()
     quotas = user_profile.quotas.all()
@@ -70,15 +69,24 @@ def monthly_expenses_vs_quota(request):
     
     used_quota_datas = []
     quota_datas = []
+    
+#    date0 = quotas[num_months-1].date - datetime.timedelta(days=30)
+#    used_quota_datas.append([date0, float(user_profile.used_monthly_quota(num_months-1))])
+#    quota_datas.append([date0, float(quotas[num_months-1].quota)])
+    
+
     for i in xrange(0,num_months):
-        quota = quotas[i]             
-        used_quota = float(user_profile.used_monthly_quota(i))   
+        quota = quotas[num_months-1-i]             
+        used_quota = float(user_profile.used_monthly_quota(num_months-1-i))   
         xaxis = quota.date
         
         quota_datas.append([xaxis,float(quota.quota)])
         used_quota_datas.append([xaxis,used_quota])
 
         
+    dateN1 = quotas[0].date + datetime.timedelta(days=30)
+    used_quota_datas.append([dateN1, float(user_profile.used_monthly_quota(0))])
+    quota_datas.append([dateN1, float(quotas[0].quota)])
     
     
     graph.add_lines(used_quota_datas, label="Expenses",**{"fill":True,"steps":True})
