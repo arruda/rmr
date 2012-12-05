@@ -207,16 +207,16 @@ class UserBookFilterForm(forms.Form):
     
     
 
-#class MarkAsBoughtBookForm(forms.ModelForm):
-#    "mark a book as bought"
-#    
-#    class Meta:
-#        model = Book
-##        exclude = ('user','name','publisher','author','')
-#        fields = ('purchase_store','purchase_value','purchase_date')
-#        
+class MarkAsBoughtBookForm(forms.ModelForm):
+    "mark a book as bought"
+    
+    class Meta:
+        model = UserBook
+#        exclude = ('user','name','publisher','author','')
+        fields = ('purchase_store','purchase_value','purchase_date')
+        
 #    def __init__(self, user, *args, **kwargs):
 #        self.user = user
 #        super(MarkAsBoughtBookForm, self).__init__(*args, **kwargs)
 #        self.fields['purchase_store'].queryset = user.store_set.all()    
-#        
+        
