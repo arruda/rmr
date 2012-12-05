@@ -1,0 +1,50 @@
+{% extends "util/base.html"%}
+
+{% block 'body-content' %}
+	<h1>Must Read Books</h1>
+	
+	<div>
+		<h2>Filters:</h2>
+		<form action="{% url my_books %}" method="get">
+			{{ filter_form.as_ul}}
+			
+			<input type="submit" value="Filter" />
+		</form>
+	</div>	
+
+	<div>
+		{% for book in books %}			
+			<div class="sub_content">
+				<ul>
+					<li>
+						<strong>Name:</strong> {{ book.book.name }} 
+					</li>
+					<li>
+						<strong>Author:</strong> {{ book.book.author }} 
+					</li>
+					<li>
+						<strong>Publisher:</strong> {{ book.book.publisher }} 
+					</li>
+					<li>
+						<strong>Purchased:</strong> {{ book.purchased }} 
+					</li>
+					{% if book.purchased %}							
+						<li>
+							<strong>Price:</strong> {{ book.purchase_value }} 
+						</li>							
+						<li>
+							<strong>Date Bought:</strong> {{ book.purchase_date }} 
+						</li>
+					{% else %}
+					{% comment %}
+						<form action="{% url mark_as_bought book.id %}" method="get"><input id="purchased_book" type="submit" value="Mark as Purchased!"></form>
+					{% endcomment %}
+					{% endif %}
+					{% comment %}
+					<form action="{% url edit_book book.id %}" method="get"><input id="edit_book" type="submit" value="Edit Informations"></form>
+					{% endcomment %}
+				</ul>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

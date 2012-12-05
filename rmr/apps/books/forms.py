@@ -15,6 +15,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from model_utils import Choices
 
+from authors.models import Author
+from publishers.models import Publisher
 from books.models import Book, UserBook, Genre
 
 
@@ -63,7 +65,7 @@ class BookFilterForm(forms.Form):
     
     BOOK_DESIRED_WITH_BLANK=[('','---------'),] + [(k,v.__unicode__()) for k,v in UserBook.DESIRE_CHOICES] 
     
-    purchased = forms.ChoiceField(label=_('Purchased'),choices=((True, _('Yes')), (False, _('No'))), required=False)
+#    purchased = forms.ChoiceField(label=_('Purchased'),choices=((False, _('No')), (True, _('Yes'))), required=False)
     order = forms.ChoiceField(label=_('Order by'), choices=ORDER_CHOICES,initial='name', required=False)
 #    desired = forms.ChoiceField(label=_('Desired'), choices=BOOK_DESIRED_WITH_BLANK ,initial='',required=False)
     
@@ -72,6 +74,21 @@ class BookFilterForm(forms.Form):
         self.user = user
         super(BookFilterForm, self).__init__(*args, **kwargs)
 
+        self.fields['author'] = forms.ModelChoiceField(
+                                                       label=_('Author'),
+                                                       queryset=Author.objects.all(),
+                                                       required=False)
+        
+        self.fields['publisher'] = forms.ModelChoiceField(
+                                                       label=_('Publisher'),
+                                                       queryset=Publisher.objects.all(),
+                                                       required=False)
+        
+        self.fields['genres'] = forms.ModelChoiceField(
+                                                       label=_('Genre'),
+                                                       queryset=Genre.objects.all(),
+                                                       required=False)
+        
     def get_books(self):
         "return the books based upon this form data"
         
@@ -96,20 +113,95 @@ class BookFilterForm(forms.Form):
         if genres:
             books = books.filter(genres=genres)
             
+#            
+#        #userbook infos
+#        
+#        purchased = self.cleaned_data.get('purchased',None)    
+#        if purchased == "True":
+#            books = books.filter(pk__in=self.user.books.filter(purchased=purchased))
+#            
+#            
 #        desired = self.cleaned_data.get('desired',None)        
 #        if desired:
-#            books = books.filter(desired=desired)
+#            books = books.filter(pk__in=self.user.books.filter(desired=desired))
             
-        #userbook infos
-        purchased = self.cleaned_data.get('purchased',None)        
-        print "purchased:", purchased
+        return books
+    
+    
+class UserBookFilterForm(forms.Form):
+    "filters parameters for a users books"
+    
+    ORDER_CHOICES = (
+        ('book__name', _('Name')),
+        ('book__author', _('Author')),
+        ('book__publisher', _('Publisher')),
+        ('book__genres', _('Genres')),
+        ('book__release_date',  _('Release Date')),
+        ('desired',  _('Desired Level')),
+        ('purchase_store',  _('Purchase Store')),
+        ('purchased',  _('Purchased')),
+        ('purchase_value',  _('Purchase Value')),
+        ('purchase_date',  _('Purchase Date'))
+    )
+    
+    BOOK_DESIRED_WITH_BLANK=[('','---------'),] + [(k,v.__unicode__()) for k,v in UserBook.DESIRE_CHOICES] 
+    
+    purchased = forms.ChoiceField(label=_('Purchased'),choices=(('','---------'),(False, _('No')), (True, _('Yes'))), required=False)
+    order = forms.ChoiceField(label=_('Order by'), choices=ORDER_CHOICES,initial='book__name', required=False)
+    desired = forms.ChoiceField(label=_('Desired'), choices=BOOK_DESIRED_WITH_BLANK ,initial='',required=False)
+    
+            
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super(UserBookFilterForm, self).__init__(*args, **kwargs)
+
+        self.fields['author'] = forms.ModelChoiceField(
+                                                       label=_('Author'),
+                                                       queryset=Author.objects.all(),
+                                                       required=False)
         
+        self.fields['publisher'] = forms.ModelChoiceField(
+                                                       label=_('Publisher'),
+                                                       queryset=Publisher.objects.all(),
+                                                       required=False)
         
-        if purchased == "True":
-            print "filtered"
-            books = books.filter(pk__in=self.user.books.filter(purchased=purchased))
+        self.fields['genres'] = forms.ModelChoiceField(
+                                                       label=_('Genre'),
+                                                       queryset=Genre.objects.all(),
+                                                       required=False)
+        
+    def get_books(self):
+        "return the users books based upon this form data"
+        
+        books = UserBook.objects.all().order_by('book__name')
+        
+        #get order
+        order_by = self.cleaned_data.get('order',None)
+        if order_by:
+            books = books.order_by(order_by)
             
             
+        author = self.cleaned_data.get('author',None)        
+        if author:
+            books = books.filter(book__author=author)
+            
+        publisher = self.cleaned_data.get('publisher',None)        
+        if publisher:
+            books = books.filter(book__publisher=publisher)            
+            
+        genres = self.cleaned_data.get('genres',None)        
+        if genres:
+            books = books.filter(book__genres=genres)
+            
+        purchased = self.cleaned_data.get('purchased',"")    
+        if purchased != "":
+            purchased = True if purchased == "True" else False
+            books = books.filter(purchased=purchased)
+            
+        desired = self.cleaned_data.get('desired',None)        
+        if desired:
+            books = books.filter(desired=desired)
+#            
             
         return books
     

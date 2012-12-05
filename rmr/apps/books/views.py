@@ -17,14 +17,14 @@ from annoying.decorators import render_to
 
 from utils.decorators import ajax_login_required, JsonResponse
 
-from books.forms import NewBookForm, NewGenreForm, BookFilterForm#, MarkAsBoughtBookForm, 
+from books.forms import NewBookForm, NewGenreForm, BookFilterForm, UserBookFilterForm#, MarkAsBoughtBookForm, 
 
 from books.models import Book, UserBook
 
 @login_required
 @render_to("books/list.html")
 def filter(request):
-    "list the books of the logged user"
+    "list the books of the system"
     
     
     filter_params = {}
@@ -39,6 +39,21 @@ def filter(request):
     return locals()
 
     
+@login_required
+@render_to("books/my_books.html")
+def mybooks(request):
+    "list the books of the logged user"
+    
+    
+    filter_params = {}
+    
+    filter_form = UserBookFilterForm(request.user,request.GET)
+    
+    if filter_form.is_valid():        
+        books = filter_form.get_books()
+        
+    return locals()
+
 @login_required
 @render_to("books/new.html")
 def new(request):

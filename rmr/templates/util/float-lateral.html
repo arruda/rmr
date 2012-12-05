@@ -2,6 +2,7 @@
 	<nav class="opt_menu">
 		{% if request.user.is_authenticated %}
 			<ul>
+				<li><a href="{% url my_books %}" >Must Read Books</a></li>
 				<li><a href="{% url filter_books %}" >Book List</a></li>
 				<li><a href="{% url new_book %}" >Add Book</a></li>
 				<li><a href="{% url stats %}" >Stats</a></li>
