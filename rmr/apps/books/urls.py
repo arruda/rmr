@@ -10,9 +10,7 @@
 
 from django.conf.urls.defaults import patterns, include, url
 
-urlpatterns = patterns('books.views',
-#    url(r'^$', 'index'),
-#    url(r'^exibir/(?P<template_id>\d+)/$', 'exibir',name='exibir_avaliacao'),     
+urlpatterns = patterns('books.views', 
  
    url(r'^$', 'filter', name='filter_books'),     
    url(r'^new/$', 'new', name='new_book'),       

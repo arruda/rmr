@@ -17,7 +17,7 @@ from annoying.decorators import render_to
 
 from utils.decorators import ajax_login_required, JsonResponse
 
-from books.forms import NewBookForm, NewGenreForm#, MarkAsBoughtBookForm, BookFilterForm
+from books.forms import NewBookForm, NewGenreForm, BookFilterForm#, MarkAsBoughtBookForm, 
 
 from books.models import Book, UserBook
 
@@ -26,15 +26,15 @@ from books.models import Book, UserBook
 def filter(request):
     "list the books of the logged user"
     
-#    
-#    filter_params = {}
-#    
-#    filter_form = BookFilterForm(request.user,request.GET)
-#        
-#    
-#    
-#    if filter_form.is_valid():        
-#        books = filter_form.get_books()
+    
+    filter_params = {}
+    
+    filter_form = BookFilterForm(request.user,request.GET)
+        
+    user_books = request.user.books.all()
+    
+    if filter_form.is_valid():        
+        books = filter_form.get_books()
         
     return locals()
 
