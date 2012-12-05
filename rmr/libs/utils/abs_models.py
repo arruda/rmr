@@ -27,6 +27,21 @@ class Abs_Named_Model(models.Model):
 
     def __unicode__(self):
         return self.name
+    
+class Abs_UniqueNamed_Model(models.Model):    
+    """
+    A Class that has a name and description attr unique.
+    """
+    
+    name = models.CharField(_("Name"), max_length=250,unique=True)
+#    description = models.TextField(_('Description'), null=True,blank=True)
+    
+    class Meta:
+        abstract = True
+        ordering = ['name',]
+
+    def __unicode__(self):
+        return self.name
 
 class Abs_AsJson_Model(models.Model):    
     """

@@ -17,24 +17,24 @@ from annoying.decorators import render_to
 
 from utils.decorators import ajax_login_required, JsonResponse
 
-from books.forms import BookFilterForm, NewBookForm, NewGenreForm, MarkAsBoughtBookForm
+from books.forms import NewBookForm, NewGenreForm#, MarkAsBoughtBookForm, BookFilterForm
 
-from books.models import Book
+from books.models import Book, UserBook
 
 @login_required
 @render_to("books/list.html")
 def filter(request):
     "list the books of the logged user"
     
-    
-    filter_params = {}
-    
-    filter_form = BookFilterForm(request.user,request.GET)
-        
-    
-    
-    if filter_form.is_valid():        
-        books = filter_form.get_books()
+#    
+#    filter_params = {}
+#    
+#    filter_form = BookFilterForm(request.user,request.GET)
+#        
+#    
+#    
+#    if filter_form.is_valid():        
+#        books = filter_form.get_books()
         
     return locals()
 
@@ -42,76 +42,70 @@ def filter(request):
 @login_required
 @render_to("books/new.html")
 def new(request):
-    "create a new book for the logged user"
+    "create a new book for the system"
     
     if request.method == 'POST':
-        form = NewBookForm(request.user,request.POST)
+        form = NewBookForm(request.POST)
         if form.is_valid():             
-            book = form.save(commit=False)
-            book.user = request.user
-            book.save()
-            form.save_m2m()
+            book = form.save()
             return redirect('filter_books')
     else:
-        form = NewBookForm(request.user)
+        form = NewBookForm()
     
     return locals()
 
+#
+#@login_required
+#@render_to("books/edit.html")
+#def edit(request,id_book):
+#    "edit a given book for the logged user"
+#    
+#    book = get_object_or_404(Book,pk=id_book)
+#    if request.method == 'POST':
+#        form = NewBookForm(request.user,request.POST,instance=book)
+#        if form.is_valid():             
+#            book = form.save(commit=False)
+#            book.user = request.user
+#            book.save()
+#            form.save_m2m()
+#            return redirect('filter_books')
+#    else:
+#        form = NewBookForm(request.user,instance=book)
+#    
+#    return locals()
 
-@login_required
-@render_to("books/edit.html")
-def edit(request,id_book):
-    "edit a given book for the logged user"
-    
-    book = get_object_or_404(Book,pk=id_book)
-    if request.method == 'POST':
-        form = NewBookForm(request.user,request.POST,instance=book)
-        if form.is_valid():             
-            book = form.save(commit=False)
-            book.user = request.user
-            book.save()
-            form.save_m2m()
-            return redirect('filter_books')
-    else:
-        form = NewBookForm(request.user,instance=book)
-    
-    return locals()
-
-@login_required
-@render_to("books/mark_bought.html")
-def mark_as_bought(request,id_book):
-    "mark a given book as bought"
-    book = get_object_or_404(Book,pk=id_book)
-    
-    
-    if request.method == 'POST':
-        form = MarkAsBoughtBookForm(request.user,request.POST,instance=book)
-        if form.is_valid():             
-            book = form.save(commit=False)
-            book.purchased = True
-            book.save()            
-            form.save_m2m()
-            return redirect('filter_books')
-    else:
-        if not book.purchase_date:
-            book.purchase_date = datetime.date.today()
-        form = MarkAsBoughtBookForm(request.user,instance=book)
-    
-    return locals()
+#@login_required
+#@render_to("books/mark_bought.html")
+#def mark_as_bought(request,id_book):
+#    "mark a given book as bought"
+#    book = get_object_or_404(Book,pk=id_book)
+#    
+#    
+#    if request.method == 'POST':
+#        form = MarkAsBoughtBookForm(request.user,request.POST,instance=book)
+#        if form.is_valid():             
+#            book = form.save(commit=False)
+#            book.purchased = True
+#            book.save()            
+#            form.save_m2m()
+#            return redirect('filter_books')
+#    else:
+#        if not book.purchase_date:
+#            book.purchase_date = datetime.date.today()
+#        form = MarkAsBoughtBookForm(request.user,instance=book)
+#    
+#    return locals()
     
 
 @login_required
 @render_to("books/new_genre.html")
 def new_genre(request):
-    "create a new genre for the logged user"
+    "create a new genre for the system"
     
     if request.method == 'POST':
         form = NewGenreForm(request.POST)
         if form.is_valid():             
-            genre = form.save(commit=False)
-            genre.user = request.user
-            genre.save()
-            form.save_m2m()
+            genre = form.save()
             return redirect('filter_books')
     else:
         form = NewGenreForm()
@@ -121,12 +115,10 @@ def new_genre(request):
     
 @ajax_login_required
 def new_genre_ajax(request):
-    "create a new genre for the logged user, using ajax"
+    "create a new genre for the system, using ajax"
     
     if request.method == 'POST':
-        post_dict = request.POST.copy()        
-        post_dict['user'] = request.user.id
-        form = NewGenreForm(post_dict)
+        form = NewGenreForm(request.POST)
         if form.is_valid():             
             object = form.save()
             return JsonResponse({'model':"genre",'id':object.id, 'name':object.name})

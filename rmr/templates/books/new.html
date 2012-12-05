@@ -12,10 +12,6 @@
 				{{ form.name.label_tag }} {{ form.name }} 				
 			</li>
 			<li>
-				{{ form.desired.errors }}
-				{{ form.desired.label_tag }} {{ form.desired }} 		
-			</li>	
-			<li>
 				{{ form.author.errors }}
 				{{ form.author.label_tag }} {{ form.author }} <a href="#"  class="add-another" id="new_author">+</a>				
 			</li>
@@ -37,27 +33,6 @@
 				{{ form.release_date.errors }}
 				{{ form.release_date.label_tag }} {{ form.release_date }} 		
 			</li>	
-			
-			<li>
-				{{ form.purchase_store.errors }}
-				{{ form.purchase_store.label_tag }} {{ form.purchase_store }} <a href="#"  class="add-another" id="new_purchase_store">+</a>
-			</li>	
-			
-			<li>
-				{{ form.purchased.errors }}
-				{{ form.purchased.label_tag }} {{ form.purchased }}
-			</li>	
-			
-			<li>
-				{{ form.purchase_value.errors }}
-				{{ form.purchase_value.label_tag }} {{ form.purchase_value }}
-			</li>	
-			
-			<li>
-				{{ form.purchase_date.errors }}
-				{{ form.purchase_date.label_tag }} {{ form.purchase_date }}
-			</li>	
-			
 			
 			<input type="submit" value="Create" />
 		</form>
@@ -99,9 +74,6 @@
 						}
 						else if(selected_model == "genre"){
 							post_url = url_genre;
-						}
-						else if(selected_model == "store"){
-							post_url = url_store;
 						}
 
                         $.post(post_url,
@@ -209,29 +181,12 @@
                 dialog.dialog( "open" );    
             });
             
-            //change the add buttons to add new contents
-            $('#new_purchase_store').click(function(evt){
-                evt.preventDefault();
-                
-                var dialog = $( "#model-dialog-modal" );
-                console.log("new_purchase_store");          
-                      
-                $('.ui-dialog-title').html("New Store");  
-                dialog.data("selected_model","store");
-                dialog.dialog( "open" );    
-            });
             
 		    $("#model-dl-form").live("click", function(evt){
 		        evt.preventDefault();
 		    });
 
 			//datepicker			
-	        $( "#id_purchase_date" ).datepicker({
-	            showOn: "button",
-	            buttonImage: "{{ STATIC_URL}}images/calendar.png",
-	            buttonImageOnly: true,
-	            dateFormat: "dd/mm/yy"
-	        });	
 	        $( "#id_release_date" ).datepicker({
 	            showOn: "button",
 	            buttonImage: "{{ STATIC_URL}}images/calendar.png",

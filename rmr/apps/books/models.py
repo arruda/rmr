@@ -16,31 +16,20 @@ from django.utils.translation import ugettext_lazy as _
 
 from model_utils import Choices
 
-from utils.abs_models import Abs_Named_Model, Abs_UserConected_Model
+from utils.abs_models import Abs_Named_Model, Abs_UniqueNamed_Model
 
 
-class Genre(Abs_Named_Model,Abs_UserConected_Model):
+class Genre(Abs_UniqueNamed_Model):
     "define a genre, like: action, romance, etc.."
     
     class Meta:
         app_label = 'books'
         ordering = ['name',]
-        unique_together = (('user', 'name'),)
         
         
-class Book(Abs_Named_Model, Abs_UserConected_Model):
+class Book(Abs_Named_Model):
     "a book. simple as that"
-    #author
-    #publisher    
-    #purchase_store
     
-    DESIRE_CHOICES = Choices(
-                             (1,'curious',_("1 - Curious About")),
-                             (2,'collection',_("2 - Complete Collection")),
-                             (3,'survive',_("3 - Can Survive Without It")),
-                             (4,'wait',_("4 - Can Wait a Little Longer")),
-                             (5,'now',_("5 - I NEED THIS... NOW!!!")),
-                     )
     
     author = models.ForeignKey('authors.Author',related_name='books')
     publisher = models.ForeignKey('publishers.Publisher',related_name='books')
@@ -49,13 +38,6 @@ class Book(Abs_Named_Model, Abs_UserConected_Model):
     genres = models.ManyToManyField(Genre)
     
     release_date =  models.DateField(_("Release Date"), default=datetime.date.today, null=True, blank=True)
-    desired = models.PositiveSmallIntegerField(_("Desired"), choices=DESIRE_CHOICES, default=DESIRE_CHOICES.curious)
-    
-    #purchase data
-    purchase_store = models.ForeignKey('stores.Store',related_name='books',null=True,blank=True)
-    purchased       = models.BooleanField(_("Purchased?"),default=False)
-    purchase_value = models.DecimalField(_("Purchase Value"),max_digits=10, decimal_places=2, null=True, blank=True)
-    purchase_date =  models.DateField(_("Purchase Date"),  null=True, blank=True)#, default=datetime.date.today,)
     
     
     def just_released(self):
@@ -68,8 +50,34 @@ class Book(Abs_Named_Model, Abs_UserConected_Model):
     class Meta:
         app_label = 'books'
         ordering = ['name',]
-        unique_together = (('user', 'name'),)
+        unique_together = (('name','author' ),)
     
+        
+class UserBook(models.Model):
+    "Relation between user and book"
+    
+    DESIRE_CHOICES = Choices(
+                             (1,'curious',_("1 - Curious About")),
+                             (2,'collection',_("2 - Complete Collection")),
+                             (3,'survive',_("3 - Can Survive Without It")),
+                             (4,'wait',_("4 - Can Wait a Little Longer")),
+                             (5,'now',_("5 - I NEED THIS... NOW!!!")),
+                     )
+    
+    user = models.ForeignKey('auth.User',related_name='books')
+    book = models.ForeignKey(Book,related_name='users')
+    
+    desired = models.PositiveSmallIntegerField(_("Desired"), choices=DESIRE_CHOICES, default=DESIRE_CHOICES.curious)
+    
+    #purchase data
+    purchase_store = models.ForeignKey('stores.Store',related_name='books',null=True,blank=True)
+    purchased       = models.BooleanField(_("Purchased?"),default=False)
+    purchase_value = models.DecimalField(_("Purchase Value"),max_digits=10, decimal_places=2, null=True, blank=True)
+    purchase_date =  models.DateField(_("Purchase Date"),  null=True, blank=True)#, default=datetime.date.today,)
+    
+    class Meta:
+        app_label = 'books'
+        
     @property
     def desired_text(self):
         "return the correct self.desired text"
@@ -83,5 +91,6 @@ class Book(Abs_Named_Model, Abs_UserConected_Model):
         if self.purchase_value or self.purchase_date or self.purchase_store:
             self.purchased = True
         
-        super(Book, self).save(*args, **kwargs)
+        super(UserBook, self).save(*args, **kwargs)
+        
         
