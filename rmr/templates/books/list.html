@@ -17,7 +17,7 @@
 		{% for book in books %}			
 			{% get_userBook_for_Book book request.user %}
 			<div class="sub_content">
-				<h2>{{book.name}} - {{book.author.name}} {% if userBook %}(MUST READ!){% endif %}</h2>
+				<h2>{{book.name}} <small>by</small> {{book.author.name}} {% if userBook %}(MUST READ!){% endif %}</h2>
 					
 				<ul>
 					{% if userBook %}									
@@ -34,10 +34,9 @@
 					<li>
 						<strong>Publisher:</strong> {{ book.publisher }} 
 					</li>
-					{% if not userBook %}									
-						<li>
-							<input type="button" id="mark_must_read_{{book.id}}" value="Must Read!"/>
-						</li>			
+					{% if not userBook %}			
+						<input type="button" id="mark_must_read_{{book.id}}" value="Must Read!"/>
+						
 					{% endif %}	
 					
 				</ul>
