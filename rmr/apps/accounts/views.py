@@ -53,7 +53,7 @@ def register(request):
 def index(request):
     "show index if not logged or redirect to books list"
     if request.user != None and request.user.is_authenticated():
-        return redirect('filter_books')
+        return redirect('my_books')
     
     return locals()
 
