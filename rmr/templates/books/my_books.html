@@ -10,11 +10,13 @@
 			
 			<input type="submit" value="Filter" />
 		</form>
+		<span>Total Search result: {{books.count}}</span>
 	</div>	
 
 	<div>
 		{% for book in books %}			
 			<div class="sub_content">
+				<h2>{{book.book.name}} <small>by</small> {{book.book.author.name}}</h2>
 				<ul>
 					<li>
 						<strong>Name:</strong> {{ book.book.name }} 
