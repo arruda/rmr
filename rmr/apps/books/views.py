@@ -89,6 +89,9 @@ def new(request):
 #    
 #    return locals()
 
+#
+
+
 @login_required
 @render_to("books/mark_bought.html")
 def mark_as_bought(request,id_book):
