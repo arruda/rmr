@@ -33,15 +33,15 @@ class UserProfile(models.Model):
             1 month behind, then should pass 1, if want to see 2 months behind, then pass 2.
         """
         
-#        today = datetime.date.today()
-#        total_purchased = self.user.book_set.filter(purchased=True,
-#                                  purchase_date__year=today.year,
-#                                  purchase_date__month=(today.month-month)
-#                                  ).aggregate(
-#                                      Sum("purchase_value")
-#                                  )['purchase_value__sum']
-#        return total_purchased if total_purchased != None else 0
-        return 0
+        today = datetime.date.today()
+        total_purchased = self.user.books.filter(purchased=True,
+                                  purchase_date__year=today.year,
+                                  purchase_date__month=(today.month-month)
+                                  ).aggregate(
+                                      Sum("purchase_value")
+                                  )['purchase_value__sum']
+        return total_purchased if total_purchased != None else 0
+#        return 0
     
     @property
     def quota(self):
