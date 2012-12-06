@@ -1,5 +1,5 @@
 {% extends "util/base.html"%}
-
+{% load userbook_for_book_tag %}
 {% block 'body-content' %}
 	<h1>Book List</h1>
 	
@@ -15,8 +15,16 @@
 
 	<div>
 		{% for book in books %}			
+			{% get_userBook_for_Book book request.user %}
 			<div class="sub_content">
+				<h2>{{book.name}} - {{book.author.name}} {% if userBook %}(MUST READ!){% endif %}</h2>
+					
 				<ul>
+					{% if userBook %}									
+						<li>
+							<strong>Desired:</strong> {{userBook.desired_text}}
+						</li>
+					{% endif %}	
 					<li>
 						<strong>Name:</strong> {{ book.name }} 
 					</li>
@@ -26,8 +34,119 @@
 					<li>
 						<strong>Publisher:</strong> {{ book.publisher }} 
 					</li>
+					{% if not userBook %}									
+						<li>
+							<input type="button" id="mark_must_read_{{book.id}}" value="Must Read!"/>
+						</li>			
+					{% endif %}	
+					
 				</ul>
 			</div>
 		{% endfor %}
 	</div>
+	
+    <div id="mustread-dialog-modal" title="Must Read This Book!">
+        <form id="mustread-dl-form">
+            <ul style="list-style:none;">
+                <li>
+					<label for="id_desired">Desired Level:</label>
+					<select name="desired" id="id_desired">
+						<option value="" selected="selected">---------</option>
+						<option value="1">1 - Curious About</option>
+						<option value="2">2 - Complete Collection</option>
+						<option value="3">3 - Can Survive Without It</option>
+						<option value="4">4 - Can Wait a Little Longer</option>
+						<option value="5">5 - I NEED THIS... NOW!!!</option>
+					</select>
+                </li>
+            </ul>
+        </form>
+    </div>
+{% endblock %}
+
+{% block 'jquery-docready' %}
+{{ block.super }}
+
+            $( "#mustread-dialog-modal" ).dialog({
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    Ok: function() {   
+                                    
+                        var new_form = $("#mustread-dl-form");
+                    	var book_id = $( this ).data("book_id");  
+						
+						var post_url ='{% url mark_as_must_read 0 %}'.replace("0",book_id);
+
+                        $.post(post_url,
+                            new_form.serialize(),
+                            function(data) {
+                            	if(data.errors !== undefined){
+					                //for each field in the errrors
+				                    $.each(data.errors, function(key, value) { 
+				                       	var field = new_form;
+			
+				                       	//if it's not a general error, than add it to the expecific field
+				                       	//else just add it to the form
+				                    	if(key != "__all__"){
+				                       		var field = new_form.find("[name='" + key + "']").parent();
+				                    	}
+			
+				                        //add each error to the given field
+				                        $.each(value, function(index, val){
+				                           field.prepend("<span class='error'>"+val+"</span>");
+			
+				                        });
+				                    });
+			                    }
+                            	else{
+	                                console.log(data);
+	
+	                                $( "#model-dialog-modal" ).dialog( "close" );
+	                                
+									window.location.replace("{% url my_books %}");
+	                                
+	                                
+                            	}
+
+                            },"json");
+                
+
+                    },
+                    Cancel: function() {
+                        $( this ).dialog( "close" );
+                    }
+                },
+                close: function() {                   
+                    $( this ).dialog( "close" );
+                    var new_form = $( this ).find("#mustread-dl-form");
+
+                    new_form.find("input").val("");
+                    new_form.find(".error").remove();   
+                    console.log("close");
+                }
+            });
+	
+            
+
+            $("[id^='mark_must_read']").each(function() {
+                var jqThis = $(this);                    
+                console.log(jqThis);           
+                var book_id = jqThis.attr("id").substring(jqThis.attr("id").lastIndexOf("_")+1, jqThis.attr("id").lenght); 
+                jqThis.click(function(evt){
+	                evt.preventDefault();
+	                
+	                var dialog = $( "#mustread-dialog-modal" );
+	                console.log("mark_must_read");          
+	                dialog.data("book_id",book_id);
+	                      
+	                dialog.dialog( "open" );    
+	            });
+	            
+            });
+            
+		    $("#mustread-dl-form").live("click", function(evt){
+		        evt.preventDefault();
+		    });
+
 {% endblock %}

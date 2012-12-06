@@ -17,7 +17,7 @@ from annoying.decorators import render_to
 
 from utils.decorators import ajax_login_required, JsonResponse
 
-from books.forms import NewBookForm, NewGenreForm, BookFilterForm, UserBookFilterForm, MarkAsBoughtBookForm
+from books.forms import NewBookForm, NewGenreForm, BookFilterForm, UserBookFilterForm, MarkAsBoughtBookForm, MarkAsMustReadForm
 
 from books.models import Book, UserBook
 
@@ -118,13 +118,15 @@ def mark_as_must_read(request,id_book):
     book = get_object_or_404(Book,pk=id_book)
     
     if request.method == 'POST':
-        form = MarkAsBoughtBookForm(request.POST,instance=book)
+        form = MarkAsMustReadForm(request.POST)
         if form.is_valid():             
-            book = form.save(commit=False)
-            book.purchased = True
-            book.save()            
+            userBook = form.save(commit=False)
+            userBook.user = request.user
+            userBook.book = book
+            
+            userBook.save()            
             form.save_m2m()
-            return JsonResponse({'model':"genre",'id':object.id, 'name':object.name})
+            return JsonResponse({'ok':True})
         else:
             return JsonResponse({'errors': form.errors})
             
