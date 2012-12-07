@@ -13,11 +13,12 @@
 		<span>Total Search result: {{books.count}}</span>
 	</div>	
 
-	<div>
+	<div id="book_list">
 		{% for book in books %}			
 			{% get_userBook_for_Book book request.user %}
+			<h2>{{book.name}} <small>by</small> {{book.author.name}} {% if userBook %}(MUST READ!){% endif %}</h2>
 			<div class="sub_content">
-				<h2>{{book.name}} <small>by</small> {{book.author.name}} {% if userBook %}(MUST READ!){% endif %}</h2>
+
 					
 				<ul>
 					{% if userBook %}									
@@ -147,5 +148,7 @@
 		    $("#mustread-dl-form").live("click", function(evt){
 		        evt.preventDefault();
 		    });
+		    
+		    $('#book_list').accordion();
 
 {% endblock %}

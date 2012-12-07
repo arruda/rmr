@@ -151,6 +151,7 @@ class UserBookFilterForm(forms.Form):
     
     BOOK_DESIRED_WITH_BLANK=[('','---------'),] + [(k,v.__unicode__()) for k,v in UserBook.DESIRE_CHOICES] 
     
+    search = forms.CharField(label=_('Search'), required=False)
     purchased = forms.ChoiceField(label=_('Purchased'),choices=(('','---------'),(False, _('No')), (True, _('Yes'))), required=False)
     order = forms.ChoiceField(label=_('Order by'), choices=ORDER_CHOICES,initial='book__name', required=False)
     desired = forms.ChoiceField(label=_('Desired'), choices=BOOK_DESIRED_WITH_BLANK ,initial='',required=False)
@@ -206,7 +207,11 @@ class UserBookFilterForm(forms.Form):
         desired = self.cleaned_data.get('desired',None)        
         if desired:
             books = books.filter(desired=desired)
-#            
+            
+        search = self.cleaned_data.get('search', None)
+        if search:
+            books = books.filter(book__name__icontains=search)
+        
             
         return books
     

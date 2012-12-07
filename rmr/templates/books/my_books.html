@@ -13,10 +13,10 @@
 		<span>Total Search result: {{books.count}}</span>
 	</div>	
 
-	<div>
-		{% for book in books %}			
+	<div id="book_list">
+		{% for book in books %}		
+			<h2>{{book.book.name}} <small>by</small> {{book.book.author.name}}</h2>	
 			<div class="sub_content">
-				<h2>{{book.book.name}} <small>by</small> {{book.book.author.name}}</h2>
 				<ul>
 					<li>
 						<strong>Name:</strong> {{ book.book.name }} 
@@ -54,3 +54,12 @@
 		{% endfor %}
 	</div>
 {% endblock %}
+
+
+{% block 'jquery-docready' %}
+{{ block.super }}
+
+	$('#book_list').accordion();
+	
+{% endblock %}
+	
