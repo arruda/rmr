@@ -179,7 +179,7 @@ class UserBookFilterForm(forms.Form):
     def get_books(self):
         "return the users books based upon this form data"
         
-        books = UserBook.objects.all().order_by('book__name')
+        books = UserBook.objects.filter(user=self.user).order_by('book__name')
         
         #get order
         order_by = self.cleaned_data.get('order',None)
