@@ -1,0 +1,162 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-08 13:19-0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: apps/accounts/forms.py:22
+msgid "Email"
+msgstr "Email"
+
+#: apps/accounts/forms.py:23
+msgid "Password"
+msgstr "Senha"
+
+#: apps/accounts/forms.py:24
+msgid "Password confirmation"
+msgstr "Confirmação de Senha"
+
+#: apps/accounts/forms.py:25
+msgid "Enter the same password as above, for verification."
+msgstr "Insira a senha novamente para verificação."
+
+#: apps/accounts/forms.py:31
+msgid "This email is already been used"
+msgstr "Este email já está sendo usado"
+
+#: apps/accounts/forms.py:39
+msgid "The two password fields didn't match."
+msgstr "Os dois campos de senha não são iguais."
+
+#: apps/accounts/forms.py:56
+msgid "Only positive values."
+msgstr "Valores positivos apenas."
+
+#: apps/accounts/models.py:67
+msgid "Date"
+msgstr "Data"
+
+#: apps/accounts/models.py:69
+msgid "Quota"
+msgstr "Cota"
+
+#: apps/books/admin.py:18
+msgid "Book Informations"
+msgstr "Informação do Livro"
+
+#: apps/books/admin.py:30
+msgid "Informations"
+msgstr "Informações"
+
+#: apps/books/forms.py:36
+msgid "There is a book with this name and the same author already."
+msgstr "Já existe um livro com esse mesmo nome e autor"
+
+#: apps/books/forms.py:54 apps/books/forms.py:140 libs/utils/abs_models.py:21
+#: libs/utils/abs_models.py:36
+msgid "Name"
+msgstr "Nome"
+
+#: apps/books/forms.py:55 apps/books/forms.py:79 apps/books/forms.py:141
+#: apps/books/forms.py:165
+msgid "Author"
+msgstr "Autor"
+
+#: apps/books/forms.py:56 apps/books/forms.py:84 apps/books/forms.py:142
+#: apps/books/forms.py:170
+msgid "Publisher"
+msgstr "Editora"
+
+#: apps/books/forms.py:57 apps/books/forms.py:143
+msgid "Genres"
+msgstr "Generos"
+
+#: apps/books/forms.py:58 apps/books/forms.py:144 apps/books/models.py:40
+msgid "Release Date"
+msgstr "Data de Lançamento"
+
+#: apps/books/forms.py:69 apps/books/forms.py:154
+msgid "Search"
+msgstr "Busca"
+
+#: apps/books/forms.py:70 apps/books/forms.py:156
+msgid "Order by"
+msgstr "Ordenar por"
+
+#: apps/books/forms.py:89 apps/books/forms.py:175
+msgid "Genre"
+msgstr "Genero"
+
+#: apps/books/forms.py:145
+msgid "Desired Level"
+msgstr "Nível de Desejo"
+
+#: apps/books/forms.py:146
+msgid "Purchase Store"
+msgstr "Loja de Compra"
+
+#: apps/books/forms.py:147 apps/books/forms.py:155
+msgid "Purchased"
+msgstr "Comprado"
+
+#: apps/books/forms.py:148 apps/books/models.py:75
+msgid "Purchase Value"
+msgstr "Valor de Compra"
+
+#: apps/books/forms.py:149 apps/books/models.py:76
+msgid "Purchase Date"
+msgstr "Data da Compra"
+
+#: apps/books/forms.py:155
+msgid "No"
+msgstr "Não"
+
+#: apps/books/forms.py:155
+msgid "Yes"
+msgstr "Sim"
+
+#: apps/books/forms.py:157 apps/books/models.py:70
+msgid "Desired"
+msgstr "Desejado"
+
+#: apps/books/models.py:37
+msgid "Synopsis"
+msgstr "Sinópse"
+
+#: apps/books/models.py:60
+msgid "1 - Curious About"
+msgstr "1 - Curioso"
+
+#: apps/books/models.py:61
+msgid "2 - Complete Collection"
+msgstr "2 - Completar Coleção"
+
+#: apps/books/models.py:62
+msgid "3 - Can Survive Without It"
+msgstr "3 - Sobrevivo Sem"
+
+#: apps/books/models.py:63
+msgid "4 - Can Wait a Little Longer"
+msgstr "4 - Posso Esperar Mais um Pouco"
+
+#: apps/books/models.py:64
+msgid "5 - I NEED THIS... NOW!!!"
+msgstr "5 - PRECISO DISSO...AGORA!!!"
+
+#: apps/books/models.py:74
+msgid "Purchased?"
+msgstr "Comprado?"
