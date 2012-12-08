@@ -98,7 +98,8 @@ def mark_as_bought(request,id_book):
     "mark a given userbook as bought"
     book = get_object_or_404(UserBook,pk=id_book)
     
-    
+    if request.user != book.user:
+        return redirect('filter_books')
     if request.method == 'POST':
         form = MarkAsBoughtBookForm(request.POST,instance=book)
         if form.is_valid():             
@@ -106,7 +107,7 @@ def mark_as_bought(request,id_book):
             book.purchased = True
             book.save()            
             form.save_m2m()
-            return redirect('my_books')
+            return redirect('filter_books')
     else:
         if not book.purchase_date:
             book.purchase_date = datetime.date.today()
